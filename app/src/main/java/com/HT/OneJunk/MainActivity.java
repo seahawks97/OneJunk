@@ -1,8 +1,10 @@
-package com.example.myapplication;
+package com.HT.OneJunk;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.HT.OneJunk.R;
 
 public class MainActivity extends AppCompatActivity {
 
