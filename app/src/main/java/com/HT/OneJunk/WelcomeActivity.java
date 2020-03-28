@@ -33,7 +33,7 @@ public class WelcomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_welcome);
 
         mLoggedInGroup = findViewById(R.id.logged_in_group);
         mLoggedOutGroup = findViewById(R.id.logged_out_group);
@@ -47,7 +47,8 @@ public class WelcomeActivity extends AppCompatActivity {
         updateUI(currentUser);
 
     }
-    public void onStart(){
+
+    public void onStart() {
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         updateUI(currentUser);
