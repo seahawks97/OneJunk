@@ -1,11 +1,12 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
 
     defaultConfig {
-        applicationId "com.example.myapplication"
+        applicationId "com.HT.OneJunk"
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
@@ -35,4 +36,7 @@ dependencies {
     })
     testImplementation 'junit:junit:4.13'
     implementation 'com.google.android.material:material:1.1.0'
+    implementation 'com.google.firebase:firebase-analytics:17.2.2'
+    implementation 'com.google.firebase:firebase-auth:19.3.0'
+
 }

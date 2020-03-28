@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">OneJunk</string>
+    <string name="email">Email</string>
+    <string name="password_label">Password</string>
+    <string name="hello">Welcome %1$s!</string>
+    <string name="logout">Logout</string>
+    <string name="login">Login</string>
+    <string name="register">Create New Account</string>
+    <string name="firestore_button">Launch Firestore Activity</string>
 </resources>

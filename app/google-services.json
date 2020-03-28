@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "284809429500",
+    "firebase_url": "https://onejunk-9ec0e.firebaseio.com",
+    "project_id": "onejunk-9ec0e",
+    "storage_bucket": "onejunk-9ec0e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:284809429500:android:aa1fe3c3a208cab20bf279",
+        "android_client_info": {
+          "package_name": "com.HT.OneJunk"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "284809429500-aois5lrhukshr2ufv0bft2lrrotm4rjk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBA6oHsqaTy4aWJh5N8bQCSENkeAUv7_DE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "284809429500-aois5lrhukshr2ufv0bft2lrrotm4rjk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
