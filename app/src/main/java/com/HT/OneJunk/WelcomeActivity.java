@@ -18,9 +18,9 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class MainActivity extends AppCompatActivity {
+public class WelcomeActivity extends AppCompatActivity {
 
-    private static final String TAG = "MainActivity";
+    private static final String TAG = "WelcomeActivity";
     private FirebaseAuth mAuth;
 
     private ConstraintLayout mLoggedInGroup;
@@ -54,11 +54,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateUI(FirebaseUser currentUser) {
-        if (currentUser != null) {
+        if (currentUser != null) { // logged in
             mLoggedOutGroup.setVisibility(View.GONE);
             mLoggedInGroup.setVisibility(View.VISIBLE);
             mNameLabel.setText(String.format(getResources().getString(R.string.hello), currentUser.getEmail()));
-        } else {
+        } else { // not logged in
             mLoggedInGroup.setVisibility(View.GONE);
             mLoggedOutGroup.setVisibility(View.VISIBLE);
         }
@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
                         } else {
                             Exception e = task.getException();
                             Log.w(TAG, "signInWithEmail:failure", e);
-                            Toast.makeText(MainActivity.this, "Login failed: " + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(WelcomeActivity.this, "Login failed: " + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                             updateUI(null);
                         }
                     }
@@ -136,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
                         } else {
                             Exception e = task.getException();
                             Log.w(TAG, "createUserWithEmail:failure", e);
-                            Toast.makeText(MainActivity.this, "Registration failed: " + e.getLocalizedMessage(),
+                            Toast.makeText(WelcomeActivity.this, "Registration failed: " + e.getLocalizedMessage(),
                                     Toast.LENGTH_LONG).show();
                             updateUI(null);
                         }
