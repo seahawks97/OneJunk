@@ -18,7 +18,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class MainActivity extends AppCompatActivity {
+public class WelcomeActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
     private FirebaseAuth mAuth;
@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_welcome);
 
         mLoggedInGroup = findViewById(R.id.logged_in_group);
         mLoggedOutGroup = findViewById(R.id.logged_out_group);
@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
                         } else {
                             Exception e = task.getException();
                             Log.w(TAG, "signInWithEmail:failure", e);
-                            Toast.makeText(MainActivity.this, "Login failed: " + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(WelcomeActivity.this, "Login failed: " + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                             updateUI(null);
                         }
                     }
