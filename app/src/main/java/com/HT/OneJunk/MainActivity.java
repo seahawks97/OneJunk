@@ -136,8 +136,7 @@ public class MainActivity extends AppCompatActivity {
                         } else {
                             Exception e = task.getException();
                             Log.w(TAG, "createUserWithEmail:failure", e);
-                            Toast.makeText(MainActivity.this, "Registration failed: " + e.getLocalizedMessage(),
-                                    Toast.LENGTH_LONG).show();
+                            Toast.makeText(MainActivity.this, "Registration failed: " + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                             updateUI(null);
                         }
                     }
