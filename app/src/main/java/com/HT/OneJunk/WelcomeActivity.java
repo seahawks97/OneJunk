@@ -1,8 +1,11 @@
 package com.HT.OneJunk;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -10,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -20,7 +24,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class WelcomeActivity extends AppCompatActivity {
 
-    private static final String TAG = "MainActivity";
+    private static final String TAG = "WelcomeActivity";
     private FirebaseAuth mAuth;
 
     private ConstraintLayout mLoggedInGroup;
@@ -34,6 +38,8 @@ public class WelcomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         mLoggedInGroup = findViewById(R.id.logged_in_group);
         mLoggedOutGroup = findViewById(R.id.logged_out_group);
@@ -142,5 +148,20 @@ public class WelcomeActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case R.id.action_create_new_post:
+                Intent aboutIntent = new Intent(WelcomeActivity.this, NewPostActivity.class);
+                startActivity(aboutIntent);
+                return true;
+            default: return super.onOptionsItemSelected(item);
+        }
     }
 }
