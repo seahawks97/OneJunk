@@ -47,6 +47,7 @@ public class WelcomeActivity extends AppCompatActivity {
         updateUI(currentUser);
 
     }
+
     public void onStart(){
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();

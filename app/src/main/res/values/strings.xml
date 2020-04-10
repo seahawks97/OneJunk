@@ -1,4 +1,5 @@
 <resources>
+    <!-- Welcome -->
     <string name="app_name">OneJunk</string>
     <string name="email">Email</string>
     <string name="password_label">Password</string>
