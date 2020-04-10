@@ -31,13 +31,14 @@ public class NewPostActivity extends AppCompatActivity {
     }
 
     private boolean validateForm() {
+        // Called when the user hits submit post
         boolean valid = true;
 
         String title = npTitleIn.getText().toString();
         if (TextUtils.isEmpty(title)) {
             npTitleIn.setError("Required.");
             valid = false;
-        } else {
+        } else { // title is filled in
             npTitleIn.setError(null);
         }
 
@@ -45,7 +46,7 @@ public class NewPostActivity extends AppCompatActivity {
         if (TextUtils.isEmpty(desc)) {
             npDescriptionIn.setError("Required.");
             valid = false;
-        } else {
+        } else { // description is filled in
             npDescriptionIn.setError(null);
         }
 
@@ -53,7 +54,14 @@ public class NewPostActivity extends AppCompatActivity {
         if (TextUtils.isEmpty(price)) {
             npPriceIn.setError("Required.");
             valid = false;
-        } else {
+        } else if ((price.charAt(price.length() - 2) != '.') || (price.split(".")[1].length() > 2)){
+            // if price has invalid dollars or cents
+            npPriceIn.setError("Price must be in dollars and cents.");
+            valid = false;
+        } else if (price.charAt(0) == '-') { // price is negative
+            npPriceIn.setError("Price must be positive.");
+            valid = false;
+        } else { // price is valid
             npPriceIn.setError(null);
         }
 

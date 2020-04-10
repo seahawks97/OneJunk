@@ -62,7 +62,7 @@
         android:importantForAutofill="no"
         android:hint="@string/description_hint"
         android:textSize="24sp"
-        android:inputType="textShortMessage"
+        android:inputType="textMultiLine"
         app:layout_constraintTop_toBottomOf="@id/description_label"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
