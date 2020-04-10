@@ -7,4 +7,13 @@
     <string name="login">Login</string>
     <string name="register">Create New Account</string>
     <string name="firestore_button">Launch Firestore Activity</string>
+
+    <!-- New Post strings -->
+    <string name="create_new_post_title">Create a New Post</string>
+    <string name="title_label">Post Title:</string>
+    <string name="title_hint">The name of what you\'re selling</string>
+    <string name="description_label">Describe the Item:</string>
+    <string name="description_hint">Write a description of the item (include condition)</string>
+    <string name="price_label">Enter a Price:</string>
+    <string name="price_hint">Price of the item</string>
 </resources>
