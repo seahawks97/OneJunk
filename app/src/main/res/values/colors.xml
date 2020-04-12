@@ -3,5 +3,7 @@
     <color name="colorPrimary">#006666</color>
     <color name="colorPrimaryDark">#003366</color>
     <color name="colorAccent">#FFD600</color>
-    <color name="black">#000000</color>
+
+    <color name="post">#00802B</color>
+    <color name="cancel">#BB0000</color>
 </resources>

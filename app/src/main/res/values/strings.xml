@@ -17,4 +17,6 @@
     <string name="description_hint">Write a description of the item (include condition)</string>
     <string name="price_label">Price:</string>
     <string name="price_hint">Enter a price in USD</string>
+    <string name="submit_button">Publish Post</string>
+    <string name="cancel_button">Cancel</string>
 </resources>
