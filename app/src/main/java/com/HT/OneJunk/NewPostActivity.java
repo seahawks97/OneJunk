@@ -60,7 +60,7 @@ public class NewPostActivity extends AppCompatActivity {
             npPriceIn.setError("Required.");
             valid = false;
         } else if ((price.charAt(price.length() - 2) != '.') || (price.split(".")[1].length() > 2)){
-            // if price has invalid dollars or cents
+            // if price doesn't include a '.' to denote dollars/cents
             npPriceIn.setError("Price must be in dollars and cents.");
             valid = false;
         } else if (price.charAt(0) == '-') { // price is negative
