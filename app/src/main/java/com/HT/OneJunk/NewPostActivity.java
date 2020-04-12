@@ -2,6 +2,7 @@ package com.HT.OneJunk;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -11,6 +12,7 @@ import androidx.appcompat.widget.Toolbar;
 
 public class NewPostActivity extends AppCompatActivity {
 
+    private static final String TAG = "NewPostActivity";
     private TextView npTitle;
     private EditText npTitleIn;
     private TextView npDescription;
@@ -60,7 +62,7 @@ public class NewPostActivity extends AppCompatActivity {
             npPriceIn.setError("Required.");
             valid = false;
         } else if ((price.charAt(price.length() - 2) != '.') || (price.split(".")[1].length() > 2)){
-            // if price doesn't include a '.' to denote dollars/cents
+            // if price doesn't include a '.' to properly denote dollars/cents
             npPriceIn.setError("Price must be in dollars and cents.");
             valid = false;
         } else if (price.charAt(0) == '-') { // price is negative
@@ -71,6 +73,20 @@ public class NewPostActivity extends AppCompatActivity {
         }
 
         return valid;
+    }
+
+    void submitPost(View view) {
+        if (!validateForm()) {
+            return;
+        }
+
+        // get string info
+        String title = npTitleIn.getText().toString();
+        String desc = npDescriptionIn.getText().toString();
+        String price = npPriceIn.getText().toString();
+
+        // connect to Firebase Database
+
     }
 
 }
