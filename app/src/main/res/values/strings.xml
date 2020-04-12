@@ -11,10 +11,10 @@
 
     <!-- New Post strings -->
     <string name="create_new_post_title">Create a New Post</string>
-    <string name="title_label">Post Title:</string>
-    <string name="title_hint">The name of what you\'re selling</string>
-    <string name="description_label">Describe the Item:</string>
+    <string name="title_label">Title:</string>
+    <string name="title_hint">What are you selling?</string>
+    <string name="description_label">Description:</string>
     <string name="description_hint">Write a description of the item (include condition)</string>
-    <string name="price_label">Enter a Price:</string>
-    <string name="price_hint">Price of the item</string>
+    <string name="price_label">Price:</string>
+    <string name="price_hint">Enter a price in USD</string>
 </resources>

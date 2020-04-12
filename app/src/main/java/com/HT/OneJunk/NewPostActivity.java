@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 public class NewPostActivity extends AppCompatActivity {
-    private TextView npHeader;
+
     private TextView npTitle;
     private EditText npTitleIn;
     private TextView npDescription;
@@ -27,7 +27,6 @@ public class NewPostActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        npHeader = findViewById(R.id.create_post_title);
         npTitle = findViewById(R.id.title_label);
         npTitleIn = findViewById(R.id.title_in);
         npDescription = findViewById(R.id.description_label);
