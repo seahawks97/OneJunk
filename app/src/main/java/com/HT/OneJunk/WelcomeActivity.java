@@ -1,6 +1,5 @@
 package com.HT.OneJunk;
 
-import android.app.DownloadManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -9,7 +8,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,9 +24,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
@@ -36,7 +31,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private static final String TAG = "WelcomeActivity";
     private static final String JUNK = "junk";
-    private final FirbaseFirestore mDb = FirebaseFirestore.getInstance();
+    private final FirebaseFirestore mDb = FirebaseFirestore.getInstance();
     private FirebaseAuth mAuth;
 
     private ConstraintLayout mLoggedInGroup;
@@ -44,7 +39,7 @@ public class WelcomeActivity extends AppCompatActivity {
     private TextView mNameLabel;
     private EditText mEmailField;
     private EditText mPasswordField;
-    private CaptionedImagesAdapter mAdapter;
+    private ItemRecyclerAdapter mAdapter;
 
 
     @Override
@@ -56,13 +51,19 @@ public class WelcomeActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.menu_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        Query query = mDb.collection(JUNK).orderBy("created time", Query.Direction.DESCENDING).limit(LIMIT);
+        Query query = mDb.collection(JUNK).orderBy("created time", Query.Direction.ASCENDING);
 
         //Gets info about the item to place into recycler view
-        // FirestoreRecyclerOptions<______> options = new FirestoreRecyclerOptions.Builder<______>().setQuery(query, _____.class).build();
+        FirestoreRecyclerOptions<Item> options = new FirestoreRecyclerOptions.Builder<Item>().setQuery(query, Item.class).build();
 
         //Opens detail page for items
-        //mAdapter = new CaptionedImagesAdapter(options, new CaptionedImagesAdapter.onItemCL())
+        mAdapter = new ItemRecyclerAdapter(options, new ItemRecyclerAdapter.OnItemClickListener(){
+            @Override
+            public void onItemClick(int position){
+                Intent aboutIntent = new Intent(WelcomeActivity.this, DetailActivity.class);
+                startActivity(aboutIntent);
+            }
+        });
 
         mLoggedInGroup = findViewById(R.id.logged_in_group);
         mLoggedOutGroup = findViewById(R.id.logged_out_group);
