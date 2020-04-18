@@ -1,15 +1,25 @@
 package com.HT.OneJunk;
 
 import android.os.Bundle;
-import android.widget.TextView;
+import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
 public class DetailActivity extends AppCompatActivity {
 
-    public static final String EXTRA_ITEM = "item_name";
+    private static final String TAG = "WelcomeActivity";
+    private static final String JUNK = "junk";
+    private final FirebaseFirestore mDb = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,20 +30,20 @@ public class DetailActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        TextView title = findViewById(R.id.title);
-        title.setText(Item.getTitle());
+        Query query = mDb.collection(JUNK).orderBy("created time", Query.Direction.ASCENDING);
 
-        TextView description = findViewById(R.id.description);
-        description.setText(Item.getDescription());
-
-        TextView price = findViewById(R.id.price);
-        price.setText(Item.getPrice());
-
-        TextView seller = findViewById(R.id.seller);
-        seller.setText(Item.getSeller());
-
-        TextView created_on = findViewById(R.id.created_on);
-        created_on.setText(Item.getCreatedTime());
+        mDb.collection(JUNK).orderBy("created time", Query.Direction.ASCENDING).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    for(QueryDocumentSnapshot document:task.getResult()){
+                        Log.d(TAG, document.getId() + "=>" + document.getData());
+                    }
+                }else{
+                    Log.d(TAG, "Error getting posts:", task.getException());
+                }
+            }
+        });
 
     }
 }
