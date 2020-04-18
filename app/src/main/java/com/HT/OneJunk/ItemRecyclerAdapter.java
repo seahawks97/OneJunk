@@ -12,8 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 
-import org.w3c.dom.Text;
-
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
@@ -46,11 +44,11 @@ public class ItemRecyclerAdapter extends FirestoreRecyclerAdapter<Item, ItemRecy
         ItemViewHolder(CardView v) {
             super(v);
             view = v;
-            title = v.findViewById(R.id.item_title);
-            description = v.findViewById(R.id.item_description);
-            price = v.findViewById(R.id.item_price);
-            seller = v.findViewById(R.id.item_seller);
-            createdOn = v.findViewById(R.id.item_created_on);
+            title = v.findViewById(R.id.title);
+            description = v.findViewById(R.id.description);
+            price = v.findViewById(R.id.price_in);
+            seller = v.findViewById(R.id.seller);
+            createdOn = v.findViewById(R.id.created_on);
         }
     }
     @Override
