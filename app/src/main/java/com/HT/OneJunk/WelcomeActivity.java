@@ -26,6 +26,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class WelcomeActivity extends AppCompatActivity {
 
@@ -50,6 +52,26 @@ public class WelcomeActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         RecyclerView recyclerView = findViewById(R.id.menu_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+
+
+//check to see if it is working
+        mDb.collection(JUNK).orderBy("created_on", Query.Direction.ASCENDING).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    for(QueryDocumentSnapshot document:task.getResult()){
+                        Log.d(TAG, document.getId() + "=>" + document.getData());
+                    }
+                }else{
+                    Log.d(TAG, "Error getting posts:", task.getException());
+                }
+            }
+        });
+
+
+
+
 
         Query query = mDb.collection(JUNK).orderBy("created_on", Query.Direction.ASCENDING);
 
