@@ -69,7 +69,7 @@ public class ItemRecyclerAdapter extends FirestoreRecyclerAdapter<Item, ItemRecy
     }
     @Override
     public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
-        CardView v = (CardView) LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_detail, parent, false);
+        CardView v = (CardView) LayoutInflater.from(parent.getContext()).inflate(R.layout.card_captioned_image, parent, false);
         return new ItemViewHolder(v);
     }
 }

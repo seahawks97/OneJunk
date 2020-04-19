@@ -15,7 +15,7 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/info_image"
+            android:id="@+id/image"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1.0"
@@ -24,17 +24,18 @@
             card_view:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/info_title"
+            android:id="@+id/title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toBottomOf="@+id/info_image"/>
+            card_view:layout_constraintTop_toBottomOf="@+id/image"/>
 
         <TextView
+            android:id="@+id/price"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            card_view:layout_constraintStart_toEndOf="@+id/info_title"
-            card_view:layout_constraintTop_toBottomOf="@+id/info_image"/>
+            card_view:layout_constraintStart_toEndOf="@+id/title"
+            card_view:layout_constraintTop_toBottomOf="@+id/image"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -51,7 +51,7 @@ public class WelcomeActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.menu_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        Query query = mDb.collection(JUNK).orderBy("created time", Query.Direction.ASCENDING);
+        Query query = mDb.collection(JUNK).orderBy("createdTime", Query.Direction.ASCENDING);
 
         //Gets info about the item to place into recycler view
         FirestoreRecyclerOptions<Item> options = new FirestoreRecyclerOptions.Builder<Item>().setQuery(query, Item.class).build();
@@ -64,6 +64,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 startActivity(aboutIntent);
             }
         });
+        recyclerView.setAdapter(mAdapter);
 
         mLoggedInGroup = findViewById(R.id.logged_in_group);
         mLoggedOutGroup = findViewById(R.id.logged_out_group);
@@ -79,11 +80,19 @@ public class WelcomeActivity extends AppCompatActivity {
 
 
     }
-
+    @Override
     public void onStart(){
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         updateUI(currentUser);
+        mAdapter.startListening();
+    }
+    @Override
+    public void onStop(){
+        super.onStop();
+        if (mAdapter != null) {
+            mAdapter.stopListening();
+        }
     }
 
     private void updateUI(FirebaseUser currentUser) {
