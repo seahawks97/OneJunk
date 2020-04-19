@@ -116,6 +116,7 @@
                 android:textSize="24sp"
                 android:background="@color/cancel"
                 android:textColor="@color/white"
+                android:onClick="cancelPost"
                 />
 
             <Button
