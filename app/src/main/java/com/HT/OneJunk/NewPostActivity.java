@@ -14,24 +14,21 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.storage.FirebaseStorage;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Date;
 
 public class NewPostActivity extends AppCompatActivity {
 
     private static final String TAG = "NewPostActivity";
     private FirebaseFirestore npDb = FirebaseFirestore.getInstance();
-    private FirebaseStorage npStore;
+    private FirebaseUser npUser = FirebaseAuth.getInstance().getCurrentUser();
 
-    private TextView npTitle;
     private EditText npTitleIn;
-    private TextView npDescription;
     private EditText npDescriptionIn;
-    private TextView npPrice;
     private EditText npPriceIn;
 
     @Override
@@ -43,11 +40,8 @@ public class NewPostActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        npTitle = findViewById(R.id.title_label);
         npTitleIn = findViewById(R.id.title_in);
-        npDescription = findViewById(R.id.description_label);
         npDescriptionIn = findViewById(R.id.description_in);
-        npPrice = findViewById(R.id.price_label);
         npPriceIn = findViewById(R.id.price_in);
     }
 
@@ -75,7 +69,7 @@ public class NewPostActivity extends AppCompatActivity {
         if (TextUtils.isEmpty(price)) {
             npPriceIn.setError("Required.");
             valid = false;
-        } else if ((price.charAt(price.length() - 3) != '.') || (price.split(".")[1].length() > 2)){
+        } else if ((price.length() < 4) || (price.charAt(price.length() - 3) != '.') || (price.split(".")[1].length() > 2)){
             // if price doesn't include a '.' to properly denote dollars/cents
             npPriceIn.setError("Price must be in dollars and cents.");
             valid = false;
@@ -89,7 +83,7 @@ public class NewPostActivity extends AppCompatActivity {
         return valid;
     }
 
-    void submitPost(View view) {
+    public void submitPost(View view) {
         if (!validateForm()) {
             return;
         }
@@ -99,14 +93,14 @@ public class NewPostActivity extends AppCompatActivity {
         String desc = npDescriptionIn.getText().toString();
         String price = npPriceIn.getText().toString();
 
-        // create HashMap of data
-        Map<String, Object> post = new HashMap<>();
-        post.put("title", title);
-        post.put("description", desc);
-        post.put("price", price);
+        // get userID
+        String userID = npUser.getUid();
+
+        // prepare data: create HashMap of data
+        Item post = new Item(title, desc, price, userID, new Date());
 
         // add to collection
-        npDb.collection("posts").add(post)
+        npDb.collection("users").add(post)
         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
@@ -119,7 +113,7 @@ public class NewPostActivity extends AppCompatActivity {
                 Log.w(TAG, "addPostToFirestore:failure");
             }
         });
-        
+
 
     }
 

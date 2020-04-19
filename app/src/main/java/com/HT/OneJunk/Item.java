@@ -17,6 +17,7 @@ public class Item {
         this.seller = seller;
         this.created_on = createdTime;
     }
+
     public String getTitle(){
         return title_in;
     }
