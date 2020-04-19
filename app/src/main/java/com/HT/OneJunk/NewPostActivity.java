@@ -2,22 +2,30 @@ package com.HT.OneJunk;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class NewPostActivity extends AppCompatActivity {
 
     private static final String TAG = "NewPostActivity";
-    private FirebaseFirestore mFire;
-    private FirebaseStorage mStore;
+    private FirebaseFirestore npDb = FirebaseFirestore.getInstance();
+    private FirebaseStorage npStore;
 
     private TextView npTitle;
     private EditText npTitleIn;
@@ -91,7 +99,27 @@ public class NewPostActivity extends AppCompatActivity {
         String desc = npDescriptionIn.getText().toString();
         String price = npPriceIn.getText().toString();
 
-        // connect to Firebase Database
+        // create HashMap of data
+        Map<String, Object> post = new HashMap<>();
+        post.put("title", title);
+        post.put("description", desc);
+        post.put("price", price);
+
+        // add to collection
+        npDb.collection("posts").add(post)
+        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+            @Override
+            public void onSuccess(DocumentReference documentReference) {
+                Log.d(TAG, "addPostToFirestore:success");
+            }
+        })
+        .addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.w(TAG, "addPostToFirestore:failure");
+            }
+        });
+        
 
     }
 
