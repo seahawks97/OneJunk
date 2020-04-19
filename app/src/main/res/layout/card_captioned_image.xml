@@ -14,28 +14,28 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/image"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1.0"
-            android:scaleType="centerCrop"
-            card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toTopOf="parent" />
+<!--        <ImageView-->
+<!--            android:id="@+id/image"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:layout_weight="1.0"-->
+<!--            android:scaleType="centerCrop"-->
+<!--            card_view:layout_constraintStart_toStartOf="parent"-->
+<!--            card_view:layout_constraintTop_toTopOf="parent" />-->
 
         <TextView
-            android:id="@+id/title"
+            android:id="@+id/title_in"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toBottomOf="@+id/image"/>
+            card_view:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
-            android:id="@+id/price"
+            android:id="@+id/price_in"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            card_view:layout_constraintStart_toEndOf="@+id/title"
-            card_view:layout_constraintTop_toBottomOf="@+id/image"/>
+            card_view:layout_constraintStart_toEndOf="@+id/title_in"
+            card_view:layout_constraintTop_toTopOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

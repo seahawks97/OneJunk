@@ -30,9 +30,9 @@ public class DetailActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        Query query = mDb.collection(JUNK).orderBy("created time", Query.Direction.ASCENDING);
+        Query query = mDb.collection(JUNK).orderBy("created_on", Query.Direction.ASCENDING);
 
-        mDb.collection(JUNK).orderBy("created time", Query.Direction.ASCENDING).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        mDb.collection(JUNK).orderBy("created_on", Query.Direction.ASCENDING).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()){

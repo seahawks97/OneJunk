@@ -25,7 +25,7 @@
                 />
 
             <TextView
-                android:id="@+id/title"
+                android:id="@+id/title_in"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -38,7 +38,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
             <TextView
-                android:id="@+id/description"
+                android:id="@+id/description_in"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -46,9 +46,9 @@
                 android:layout_marginEnd="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/title" />
+                app:layout_constraintTop_toBottomOf="@+id/title_in" />
             <TextView
-                android:id="@+id/price"
+                android:id="@+id/price_in"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -56,7 +56,7 @@
                 android:layout_marginEnd="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/description" />
+                app:layout_constraintTop_toBottomOf="@+id/description_in" />
             <TextView
                 android:id="@+id/seller"
                 android:layout_width="match_parent"
@@ -66,7 +66,7 @@
                 android:layout_marginEnd="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/price" />
+                app:layout_constraintTop_toBottomOf="@+id/price_in" />
 
             <TextView
                 android:id="@+id/created_on"

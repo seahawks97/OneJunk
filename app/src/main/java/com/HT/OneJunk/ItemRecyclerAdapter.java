@@ -45,7 +45,7 @@ public class ItemRecyclerAdapter extends FirestoreRecyclerAdapter<Item, ItemRecy
             super(v);
             view = v;
             title = v.findViewById(R.id.title);
-            description = v.findViewById(R.id.description);
+            description = v.findViewById(R.id.description_in);
             price = v.findViewById(R.id.price_in);
             seller = v.findViewById(R.id.seller);
             createdOn = v.findViewById(R.id.created_on);
