@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -100,7 +101,7 @@ public class NewPostActivity extends AppCompatActivity {
         Item post = new Item(title, desc, price, userID, new Date());
 
         // add to collection
-        npDb.collection("users").add(post)
+        npDb.collection("posts").add(post)
         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
@@ -114,7 +115,16 @@ public class NewPostActivity extends AppCompatActivity {
             }
         });
 
+        Toast.makeText(NewPostActivity.this, "Your listing has been posted!", Toast.LENGTH_SHORT).show();
 
+    }
+
+    public void cancelPost(View view) {
+        // Toast to pop up "are you sure you want to cancel this post?"
+        Toast cancel = new Toast(this);
+
+        // case "yes" -> discard info, return to WelcomeActivity
+        // case "no" -> toast just goes down, data should still be saved
     }
 
 }
