@@ -10,9 +10,15 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+
 public class NewPostActivity extends AppCompatActivity {
 
     private static final String TAG = "NewPostActivity";
+    private FirebaseFirestore mFire;
+    private FirebaseStorage mStore;
+
     private TextView npTitle;
     private EditText npTitleIn;
     private TextView npDescription;
@@ -61,7 +67,7 @@ public class NewPostActivity extends AppCompatActivity {
         if (TextUtils.isEmpty(price)) {
             npPriceIn.setError("Required.");
             valid = false;
-        } else if ((price.charAt(price.length() - 2) != '.') || (price.split(".")[1].length() > 2)){
+        } else if ((price.charAt(price.length() - 3) != '.') || (price.split(".")[1].length() > 2)){
             // if price doesn't include a '.' to properly denote dollars/cents
             npPriceIn.setError("Price must be in dollars and cents.");
             valid = false;

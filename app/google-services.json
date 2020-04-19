@@ -1,34 +1,34 @@
 {
   "project_info": {
-    "project_number": "284809429500",
-    "firebase_url": "https://onejunk-9ec0e.firebaseio.com",
-    "project_id": "onejunk-9ec0e",
-    "storage_bucket": "onejunk-9ec0e.appspot.com"
+    "project_number": "366426686621",
+    "firebase_url": "https://onejunk-d8d6f.firebaseio.com",
+    "project_id": "onejunk-d8d6f",
+    "storage_bucket": "onejunk-d8d6f.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:284809429500:android:aa1fe3c3a208cab20bf279",
+        "mobilesdk_app_id": "1:366426686621:android:df1609ce186ec298d8c074",
         "android_client_info": {
           "package_name": "com.HT.OneJunk"
         }
       },
       "oauth_client": [
         {
-          "client_id": "284809429500-aois5lrhukshr2ufv0bft2lrrotm4rjk.apps.googleusercontent.com",
+          "client_id": "366426686621-b34j9b027jn9422qea450dp6p02vpib8.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBA6oHsqaTy4aWJh5N8bQCSENkeAUv7_DE"
+          "current_key": "AIzaSyBDzPkuE4k9BYqr5MkbVUXpXULwBW_AP0Q"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "284809429500-aois5lrhukshr2ufv0bft2lrrotm4rjk.apps.googleusercontent.com",
+              "client_id": "366426686621-b34j9b027jn9422qea450dp6p02vpib8.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
