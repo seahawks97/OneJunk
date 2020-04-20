@@ -36,28 +36,28 @@ public class ItemRecyclerAdapter extends FirestoreRecyclerAdapter<Item, ItemRecy
     class ItemViewHolder extends RecyclerView.ViewHolder{
         final CardView view;
         final TextView title;
-        final TextView description;
+//        final TextView description;
         final TextView price;
-        final TextView seller;
-        final TextView createdOn;
+//        final TextView seller;
+//        final TextView createdOn;
 
         ItemViewHolder(CardView v) {
             super(v);
             view = v;
-            title = v.findViewById(R.id.title);
-            description = v.findViewById(R.id.description_in);
+            title = v.findViewById(R.id.title_in);
+//            description = v.findViewById(R.id.description_in);
             price = v.findViewById(R.id.price_in);
-            seller = v.findViewById(R.id.seller);
-            createdOn = v.findViewById(R.id.created_on);
+//            seller = v.findViewById(R.id.seller);
+//            createdOn = v.findViewById(R.id.created_on);
         }
     }
     @Override
     public void onBindViewHolder(final ItemViewHolder holder, @NonNull int position, @NonNull final Item item){
         holder.title.setText(item.getTitle());
-        holder.description.setText(item.getDescription());
+//        holder.description.setText(item.getDescription());
         holder.price.setText(item.getPrice());
-        holder.seller.setText(item.getSeller());
-        holder.createdOn.setText(holder.view.getContext().getString(R.string.created_on, format.format(item.getCreatedTime())));
+//        holder.seller.setText(item.getSeller());
+//        holder.createdOn.setText(holder.view.getContext().getString(R.string.created_on, format.format(item.getCreatedTime())));
         if (listener != null){
             holder.view.setOnClickListener(new View.OnClickListener() {
                 @Override
