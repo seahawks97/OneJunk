@@ -1,5 +1,6 @@
 package com.HT.OneJunk;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -36,18 +37,19 @@ public class DetailActivity extends AppCompatActivity {
 
 
         //Query query = mDb.collection(JUNK).whereEqualTo("title_in", "chair");
+        Intent intent = getIntent();
+        String itemId = intent.getStringExtra("itemId");
+        Log.d(TAG, "Requesting item details from Firestore for item with id" + itemId);
 
-        DocumentReference docRef = mDb.collection(JUNK).document("dXOyMY4or8ziTDcGD23n");
+        DocumentReference docRef = mDb.collection(JUNK).document(itemId);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if(task.isSuccessful()){
                     DocumentSnapshot document = task.getResult();
-                    if(document.exists()){
-                        Log.d(TAG, "Document Snapshot data:" + document.getData());
-                    }else{
-                        Log.d(TAG, "No such document");
-                    }
+                    Log.d(TAG, "Document Snapshot data:" + document.getData());
+                    Item item = document.toObject(Item.class);
+                    Log.d(TAG, "Converted document to Item class. Item ID: " + item.id);
                 }else{
                     Log.d(TAG, "get failed with", task.getException());
                 }

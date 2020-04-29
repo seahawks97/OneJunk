@@ -18,7 +18,7 @@ import java.util.Locale;
 
 public class ItemRecyclerAdapter extends FirestoreRecyclerAdapter<Item, ItemRecyclerAdapter.ItemViewHolder> {
     public interface OnItemClickListener{
-        void onItemClick(int position);
+        void onItemClick(Item item);
     }
 
     private final SimpleDateFormat format = new SimpleDateFormat("MM-dd-yy", Locale.US);
@@ -62,7 +62,7 @@ public class ItemRecyclerAdapter extends FirestoreRecyclerAdapter<Item, ItemRecy
             holder.view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    listener.onItemClick(holder.getAdapterPosition());
+                    listener.onItemClick(item);
                 }
             });
         }
