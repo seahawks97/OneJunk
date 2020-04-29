@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -98,18 +99,20 @@ public class NewPostActivity extends AppCompatActivity {
         // prepare data: create HashMap of data
         Item post = new Item(title, desc, price, userID, new Date());
 
+        Toast.makeText(this, "Adding " + title, Toast.LENGTH_SHORT).show();
+
         // add to collection
-        npDb.collection("users").add(post)
+        npDb.collection("junk").add(post)
         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
-                Log.d(TAG, "addPostToFirestore:success");
+                Log.d(TAG, "addPostToFirestore:success" + documentReference.getId());
             }
         })
         .addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Log.w(TAG, "addPostToFirestore:failure");
+                Log.w(TAG, "addPostToFirestore:failure", e);
             }
         });
 
