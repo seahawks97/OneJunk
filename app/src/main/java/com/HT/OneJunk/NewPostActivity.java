@@ -1,5 +1,6 @@
 package com.HT.OneJunk;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -69,10 +70,6 @@ public class NewPostActivity extends AppCompatActivity {
         if (TextUtils.isEmpty(price)) {
             npPriceIn.setError("Required.");
             valid = false;
-        } else if ((price.length() < 4) || (price.charAt(price.length() - 3) != '.') || (price.split(".")[1].length() > 2)){
-            // if price doesn't include a '.' to properly denote dollars/cents
-            npPriceIn.setError("Price must be in dollars and cents.");
-            valid = false;
         } else if (price.charAt(0) == '-') { // price is negative
             npPriceIn.setError("Price must be positive.");
             valid = false;
@@ -99,14 +96,15 @@ public class NewPostActivity extends AppCompatActivity {
         // prepare data: create HashMap of data
         Item post = new Item(title, desc, price, userID, new Date());
 
-        Toast.makeText(this, "Adding " + title, Toast.LENGTH_SHORT).show();
 
+        Toast.makeText(this, "Adding " + title, Toast.LENGTH_SHORT).show();
         // add to collection
         npDb.collection("junk").add(post)
         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
                 Log.d(TAG, "addPostToFirestore:success" + documentReference.getId());
+
             }
         })
         .addOnFailureListener(new OnFailureListener() {
@@ -116,7 +114,10 @@ public class NewPostActivity extends AppCompatActivity {
             }
         });
 
-
+    }
+    public void cancelPost (View view){
+        Intent intent = new Intent(NewPostActivity.this, WelcomeActivity.class);
+        startActivity(intent);
     }
 
 }
