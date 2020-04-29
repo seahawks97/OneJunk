@@ -34,12 +34,12 @@ public class Item {
         this.created_on = created_on;
     }
 
-    public Item(String title, String description, String price, String seller, Date createdTime){
+    public Item(String title, String description, String price, String seller, Date created_on){
         this.title_in = title;
         this.description_in = description;
         this.price_in = price;
         this.seller = seller;
-        this.created_on = createdTime;
+        this.created_on = created_on;
     }
 
 
