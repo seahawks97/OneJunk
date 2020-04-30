@@ -3,13 +3,12 @@ package com.HT.OneJunk;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -22,7 +21,7 @@ public class DetailActivity extends AppCompatActivity {
     private static final String TAG = "DetailActivity";
     private static final String JUNK = "junk";
     private final FirebaseFirestore mDb = FirebaseFirestore.getInstance();
-    private ItemRecyclerAdapter mAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +31,7 @@ public class DetailActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        RecyclerView recyclerView = findViewById(R.id.menu_recycler);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
 
 
         //Query query = mDb.collection(JUNK).whereEqualTo("title_in", "chair");
@@ -50,30 +48,28 @@ public class DetailActivity extends AppCompatActivity {
                     Log.d(TAG, "Document Snapshot data:" + document.getData());
                     Item item = document.toObject(Item.class);
                     Log.d(TAG, "Converted document to Item class. Item ID: " + item.id);
+
+                    TextView title_in = findViewById(R.id.title_in);
+                    title_in.setText(item.getTitle());
+
+                    TextView description_in = findViewById(R.id.description_in);
+                    description_in.setText(item.getDescription());
+
+                    TextView price_in = findViewById((R.id.price_in));
+                    price_in.setText(item.getPrice());
+
+                    TextView seller = findViewById(R.id.seller);
+                    seller.setText(item.getSeller());
+
+
+
                 }else{
                     Log.d(TAG, "get failed with", task.getException());
                 }
+
+
             }
         });
-//        FirestoreRecyclerOptions<Item> options = new FirestoreRecyclerOptions.Builder<Item>().setQuery(query, Item.class).build();
-//        mAdapter = new ItemRecyclerAdapter(options);
-//        recyclerView.setAdapter(mAdapter);
-
-
-
-
-//        mDb.collection(JUNK).whereEqualTo("title", "chair").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                if(task.isSuccessful()){
-//                    for(QueryDocumentSnapshot document:task.getResult()){
-//                        Log.d(TAG, document.getId() + "=>" + document.getData());
-//                    }
-//                }else{
-//                    Log.d(TAG, "Error getting posts:", task.getException());
-//                }
-//            }
-//        });
 
     }
 }

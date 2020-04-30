@@ -32,6 +32,7 @@ public class NewPostActivity extends AppCompatActivity {
     private EditText npDescriptionIn;
     private EditText npPriceIn;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

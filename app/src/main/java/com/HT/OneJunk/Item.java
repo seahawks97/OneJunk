@@ -20,6 +20,7 @@ public class Item {
         this.title_in = title_in;
     }
 
+    @PropertyName("description")
     public void setDescription_in(String description_in) {
         this.description_in = description_in;
     }
@@ -50,6 +51,7 @@ public class Item {
     public String getTitle(){
         return title_in;
     }
+    @PropertyName("description")
     public String getDescription(){
         return description_in;
     }
