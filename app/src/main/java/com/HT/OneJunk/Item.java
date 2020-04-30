@@ -1,4 +1,5 @@
 package com.HT.OneJunk;
+import com.google.firebase.firestore.DocumentId;
 import com.google.firebase.firestore.PropertyName;
 
 import java.util.Date;
@@ -10,6 +11,8 @@ public class Item {
     private String seller;
     private Date created_on;
 
+    @DocumentId
+    public String id;
     public Item() {}
 
     @PropertyName("title")

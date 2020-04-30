@@ -60,8 +60,9 @@ public class WelcomeActivity extends AppCompatActivity {
         //Opens detail page for items
         mAdapter = new ItemRecyclerAdapter(options, new ItemRecyclerAdapter.OnItemClickListener(){
             @Override
-            public void onItemClick(int position){
+            public void onItemClick(Item item){
                 Intent aboutIntent = new Intent(WelcomeActivity.this, DetailActivity.class);
+                aboutIntent.putExtra("itemId", item.id);
                 startActivity(aboutIntent);
             }
         });
