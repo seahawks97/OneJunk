@@ -1,8 +1,10 @@
 package com.HT.OneJunk;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -33,8 +35,6 @@ public class DetailActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
 
 
-
-        //Query query = mDb.collection(JUNK).whereEqualTo("title_in", "chair");
         Intent intent = getIntent();
         String itemId = intent.getStringExtra("itemId");
         Log.d(TAG, "Requesting item details from Firestore for item with id" + itemId);
@@ -43,7 +43,7 @@ public class DetailActivity extends AppCompatActivity {
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     Log.d(TAG, "Document Snapshot data:" + document.getData());
                     Item item = document.toObject(Item.class);
@@ -62,19 +62,22 @@ public class DetailActivity extends AppCompatActivity {
                     seller.setText(item.getSeller());
 
 
-
-                }else{
+                } else {
                     Log.d(TAG, "get failed with", task.getException());
                 }
-
-
             }
+
         });
-
     }
+
+    public void contact(View view){
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("mailto:"));
+        intent.putExtra(Intent.EXTRA_EMAIL, R.id.seller);
+        intent.putExtra(Intent.EXTRA_SUBJECT, R.id.title_in);
+        if (intent.resolveActivity(getPackageManager())!=null){
+            startActivity(intent);
+        }
+    }
+
 }
-
-
-
-
-
