@@ -13,11 +13,13 @@
     <string name="create_new_post_title">Create a New Post</string>
     <string name="title_label">Title:</string>
     <string name="title_hint">What are you selling?</string>
-    <string name="description_label">Description:</string>
+    <string name="description_label">Description: </string>
     <string name="description_hint">Write a description of the item (include condition)</string>
-    <string name="price_label">Price:</string>
+    <string name="price_label">Price: $</string>
     <string name="price_hint">Enter a price in USD</string>
     <string name="submit_button">Publish</string>
     <string name="cancel_button">Cancel</string>
     <string name="created_on">Created on %1$s</string>
+
+    <string name="seller_label">Seller: </string>
 </resources>

@@ -28,6 +28,7 @@ public class NewPostActivity extends AppCompatActivity {
     private FirebaseFirestore npDb = FirebaseFirestore.getInstance();
     private FirebaseUser npUser = FirebaseAuth.getInstance().getCurrentUser();
 
+
     private EditText npTitleIn;
     private EditText npDescriptionIn;
     private EditText npPriceIn;
@@ -92,7 +93,7 @@ public class NewPostActivity extends AppCompatActivity {
         String price = npPriceIn.getText().toString();
 
         // get userID
-        String userID = npUser.getUid();
+        String userID = npUser.getEmail();
 
         // prepare data: create HashMap of data
         Item post = new Item(title, desc, price, userID, new Date());
