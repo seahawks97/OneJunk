@@ -10,6 +10,7 @@ public class Item {
     private String price_in;
     private String seller;
     private Date created_on;
+    private String image;
 
     @DocumentId
     public String id;
@@ -37,13 +38,17 @@ public class Item {
     public void setCreated_on(Date created_on) {
         this.created_on = created_on;
     }
+    public void setImage(String image){
+        this.image = image;
+    }
 
-    public Item(String title, String description, String price, String seller, Date created_on){
+    public Item(String title, String description, String price, String seller, Date created_on, String image){
         this.title_in = title;
         this.description_in = description;
         this.price_in = price;
         this.seller = seller;
         this.created_on = created_on;
+        this.image = image;
     }
 
 
@@ -64,6 +69,9 @@ public class Item {
     }
     public Date getCreatedTime(){
         return created_on;
+    }
+    public String getImage(){
+        return image;
     }
 
 

@@ -134,12 +134,13 @@ public class NewPostActivity extends AppCompatActivity {
         String title = npTitleIn.getText().toString();
         String desc = npDescriptionIn.getText().toString();
         String price = npPriceIn.getText().toString();
+        String image = imageUri.toString();
 
         // get userID
         String userID = npUser.getEmail();
 
         // prepare data: create HashMap of data
-        Item post = new Item(title, desc, price, userID, new Date());
+        Item post = new Item(title, desc, price, userID, new Date(), image);
 
 
         Toast.makeText(this, "Adding " + title, Toast.LENGTH_SHORT).show();
