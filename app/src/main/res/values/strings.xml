@@ -20,7 +20,9 @@
     <string name="submit_button">Publish</string>
     <string name="cancel_button">Cancel</string>
     <string name="created_on">Created on %1$s</string>
+    <string name="uploadImage">Upload an image.</string>
 
     <string name="seller_label">Seller: </string>
     <string name="contact">Contact Seller</string>
+
 </resources>

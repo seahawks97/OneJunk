@@ -1,14 +1,20 @@
 package com.HT.OneJunk;
 
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.webkit.MimeTypeMap;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -19,6 +25,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.Date;
 
@@ -28,10 +37,16 @@ public class NewPostActivity extends AppCompatActivity {
     private FirebaseFirestore npDb = FirebaseFirestore.getInstance();
     private FirebaseUser npUser = FirebaseAuth.getInstance().getCurrentUser();
 
+    private StorageReference npStorageRef = FirebaseStorage.getInstance().getReference("Images");
+
 
     private EditText npTitleIn;
     private EditText npDescriptionIn;
     private EditText npPriceIn;
+    private Button npImageUpload;
+    private ImageView npImage;
+    public Uri imageUri;
+
 
 
     @Override
@@ -46,6 +61,32 @@ public class NewPostActivity extends AppCompatActivity {
         npTitleIn = findViewById(R.id.title_in);
         npDescriptionIn = findViewById(R.id.description_in);
         npPriceIn = findViewById(R.id.price_in);
+        npImageUpload = (Button) findViewById(R.id.imageUpload);
+        npImage = (ImageView)findViewById(R.id.image);
+
+        npImageUpload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Filechooser();
+            }
+        });
+
+    }
+
+    private void Filechooser(){
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, 1);
+
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==1 && resultCode==RESULT_OK && data!=null && data.getData()!=null){
+            imageUri = data.getData();
+            npImage.setImageURI(imageUri);
+        }
     }
 
     private boolean validateForm() {
@@ -87,6 +128,8 @@ public class NewPostActivity extends AppCompatActivity {
             return;
         }
 
+        fileUploader();
+
         // get string info
         String title = npTitleIn.getText().toString();
         String desc = npDescriptionIn.getText().toString();
@@ -120,6 +163,32 @@ public class NewPostActivity extends AppCompatActivity {
     public void cancelPost (View view){
         Intent intent = new Intent(NewPostActivity.this, WelcomeActivity.class);
         startActivity(intent);
+    }
+
+    private String getExtension(Uri uri){
+        ContentResolver contentResolver = getContentResolver();
+        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
+        return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
+    }
+    private void fileUploader(){
+        StorageReference Ref = npStorageRef.child(System.currentTimeMillis() + "." + getExtension(imageUri));
+        Ref.putFile(imageUri)
+
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        // Get a URL to the uploaded content
+                        //Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                        //Toast.makeText(this, "Post uploaded", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        // Handle unsuccessful uploads
+                        // ...
+                    }
+                });
     }
 
 }
