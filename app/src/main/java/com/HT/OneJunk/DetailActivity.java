@@ -1,21 +1,26 @@
 package com.HT.OneJunk;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -35,6 +40,7 @@ public class DetailActivity extends AppCompatActivity {
 
     private final StorageReference mStorageRef = FirebaseStorage.getInstance().getReference();
     private final FirebaseFirestore mDb = FirebaseFirestore.getInstance();
+    private FirebaseUser dUser = FirebaseAuth.getInstance().getCurrentUser();
 
     private List<Image> imageList = new ArrayList<>();
     private int mCurrentImage = 0;
@@ -94,6 +100,18 @@ public class DetailActivity extends AppCompatActivity {
                     TextView seller = findViewById(R.id.seller_in);
                     seller.setText(item.getSeller());
 
+                    // if the post email id matches the current user id, enable buttons
+                    if (isMyPost(seller.getText().toString())) {
+                        // enable edit button
+                        Button editBtn = findViewById(R.id.edit_button);
+                        editBtn.setClickable(true);
+                        editBtn.setVisibility(View.VISIBLE);
+
+                        // enable delete button
+                        Button delBtn = findViewById(R.id.delete_button);
+                        delBtn.setClickable(true);
+                        delBtn.setVisibility(View.VISIBLE);
+                    }
 
                 } else {
                     Log.d(TAG, "get failed with", task.getException());
@@ -145,11 +163,42 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     public void editPost(View view) {
-
+        // code needed here for when a user wants to edit their post
+        // Go to NewPostActivity, bring all the data with as an intent
     }
 
     public void deletePost(View view) {
+        // https://stackoverflow.com/a/13511580/10072355
+        AlertDialog.Builder b1 = new AlertDialog.Builder(DetailActivity.this);
+        b1.setMessage("Are you sure you want to delete this post?");
+        b1.setCancelable(true);
 
+        b1.setPositiveButton(
+                "Yes, delete",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        // Code needed here for when the user decides to delete a post
+                    }
+                }
+        );
+        b1.setNegativeButton(
+                "No, keep",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                }
+        );
+
+        AlertDialog alert1 = b1.create();
+        alert1.show();
+    }
+
+    private boolean isMyPost(String email) {
+        String curEmail= dUser.getEmail();
+        return (curEmail.equals(email));
     }
 
 }
