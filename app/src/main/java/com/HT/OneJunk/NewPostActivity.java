@@ -1,6 +1,7 @@
 package com.HT.OneJunk;
 
 import android.content.ContentResolver;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -139,11 +141,10 @@ public class NewPostActivity extends AppCompatActivity {
         // get userID
         String userID = npUser.getEmail();
 
-        // prepare data: create HashMap of data
+        // prepare data: create an Item of data
         Item post = new Item(title, desc, price, userID, new Date(), image);
 
-
-        Toast.makeText(this, "Adding " + title, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Adding " + title + "...", Toast.LENGTH_SHORT).show();
         // add to collection
         npDb.collection("junk").add(post)
         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -162,8 +163,34 @@ public class NewPostActivity extends AppCompatActivity {
 
     }
     public void cancelPost (View view){
-        Intent intent = new Intent(NewPostActivity.this, WelcomeActivity.class);
-        startActivity(intent);
+        // https://stackoverflow.com/a/13511580/10072355
+        AlertDialog.Builder b1 = new AlertDialog.Builder(NewPostActivity.this);
+        b1.setMessage("Are you sure you want to cancel making this post?");
+        b1.setCancelable(true);
+
+        b1.setPositiveButton(
+                "Yes, cancel",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        // Just go back to WelcomeActivity, no saving to Firestore
+                        Intent intent = new Intent(NewPostActivity.this, WelcomeActivity.class);
+                        startActivity(intent);
+                    }
+                }
+        );
+        b1.setNegativeButton(
+                "No, go back",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                }
+        );
+
+        AlertDialog alert1 = b1.create();
+        alert1.show();
     }
 
     private String getExtension(Uri uri){
