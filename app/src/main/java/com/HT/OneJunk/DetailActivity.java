@@ -91,7 +91,7 @@ public class DetailActivity extends AppCompatActivity {
                     TextView price_in = findViewById((R.id.price_in));
                     price_in.setText(item.getPrice());
 
-                    TextView seller = findViewById(R.id.seller);
+                    TextView seller = findViewById(R.id.seller_in);
                     seller.setText(item.getSeller());
 
 
@@ -137,11 +137,19 @@ public class DetailActivity extends AppCompatActivity {
     public void contact(View view){
         Intent intent = new Intent(Intent.ACTION_SENDTO);
         intent.setData(Uri.parse("mailto:"));
-        intent.putExtra(Intent.EXTRA_EMAIL, R.id.seller);
+        intent.putExtra(Intent.EXTRA_EMAIL, R.id.seller_in);
         intent.putExtra(Intent.EXTRA_SUBJECT, R.id.title_in);
         if (intent.resolveActivity(getPackageManager())!=null){
             startActivity(intent);
         }
+    }
+
+    public void editPost(View view) {
+
+    }
+
+    public void deletePost(View view) {
+
     }
 
 }

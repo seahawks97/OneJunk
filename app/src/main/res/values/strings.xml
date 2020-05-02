@@ -23,6 +23,11 @@
     <string name="uploadImage">Upload an image.</string>
 
     <string name="seller_label">Seller: </string>
-    <string name="contact">Contact Seller</string>
+
+    <!-- Buttons on activity_detail -->
+    <string name="contact_button">Contact Seller</string>
+    <string name="edit_button">Edit Post</string>
+    <string name="delete_button">Delete Post</string>
+
 
 </resources>
