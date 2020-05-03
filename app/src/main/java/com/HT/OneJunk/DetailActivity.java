@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -209,10 +210,12 @@ public class DetailActivity extends AppCompatActivity {
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        // Code needed here for when the user decides to delete a post
+                        // Get item
                         Intent fromWA = getIntent();
                         String itemId = fromWA.getStringExtra("itemId");
 
+                        // https://firebase.google.com/docs/firestore/manage-data/delete-data
+                        // delete the item from the DB
                         mDb.collection(JUNK).document(itemId)
                                 .delete()
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -221,16 +224,17 @@ public class DetailActivity extends AppCompatActivity {
                                         Log.d(TAG, "DocumentSnapshot successfully deleted!");
                                         Intent intent = new Intent(DetailActivity.this, WelcomeActivity.class);
                                         startActivity(intent);
+                                        Toast.makeText(DetailActivity.this, "Post deleted!", Toast.LENGTH_SHORT).show();
                                     }
                                 })
                                 .addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
                                         Log.w(TAG, "Error deleting document", e);
+                                        Toast.makeText(DetailActivity.this, "Unable to delete post", Toast.LENGTH_SHORT).show();
                                     }
                                 });
 
-                        mDb.collection(JUNK).getId();
                     }
                 }
         );
