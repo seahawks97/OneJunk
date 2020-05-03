@@ -183,7 +183,7 @@ public class DetailActivity extends AppCompatActivity {
         // or just go to EditPostActivity?
 
         // Attempt 1: Using intents
-        Intent intent = new Intent(DetailActivity.this, NewPostActivity.class);
+        /*Intent intent = new Intent(DetailActivity.this, NewPostActivity.class);
         TextView title = findViewById(R.id.title_in);
         TextView desc = findViewById(R.id.description_in);
         TextView price = findViewById(R.id.price_in);
@@ -193,7 +193,7 @@ public class DetailActivity extends AppCompatActivity {
         // need to get the photo(s) as well
 
         startActivity(intent);
-
+*/
     }
 
     public void deletePost(View view) {

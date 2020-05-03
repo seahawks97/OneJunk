@@ -40,7 +40,8 @@ public class NewPostActivity extends AppCompatActivity {
     private FirebaseFirestore npDb = FirebaseFirestore.getInstance();
     private FirebaseUser npUser = FirebaseAuth.getInstance().getCurrentUser();
 
-    private StorageReference npStorageRef = FirebaseStorage.getInstance().getReferenceFromUrl("gs://onejunk-9ec0e.appspot.com/Images");
+    // Whenever you update files, make sure to change the Storage link if it doesn't link to your Storage
+    private StorageReference npStorageRef = FirebaseStorage.getInstance().getReferenceFromUrl("gs://onejunk-d8d6f.appspot.com/Images");
 
 
     private EditText npTitleIn;
@@ -165,7 +166,8 @@ public class NewPostActivity extends AppCompatActivity {
             @Override
             public void onSuccess(DocumentReference documentReference) {
                 Log.d(TAG, "addPostToFirestore:success" + documentReference.getId());
-
+                Intent intent = new Intent(NewPostActivity.this, WelcomeActivity.class);
+                startActivity(intent);
             }
         })
         .addOnFailureListener(new OnFailureListener() {

@@ -52,7 +52,7 @@ public class WelcomeActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 
-        Query query = mDb.collection(JUNK).orderBy("createdTime", Query.Direction.ASCENDING);
+        Query query = mDb.collection(JUNK).orderBy("createdTime", Query.Direction.DESCENDING);
 
         //Gets info about the item to place into recycler view
         FirestoreRecyclerOptions<Item> options = new FirestoreRecyclerOptions.Builder<Item>().setQuery(query, Item.class).build();
