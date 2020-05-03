@@ -39,7 +39,7 @@ public class NewPostActivity extends AppCompatActivity {
     private FirebaseFirestore npDb = FirebaseFirestore.getInstance();
     private FirebaseUser npUser = FirebaseAuth.getInstance().getCurrentUser();
 
-    private StorageReference npStorageRef = FirebaseStorage.getInstance().getReference();
+    private StorageReference npStorageRef = FirebaseStorage.getInstance().getReferenceFromUrl("gs://onejunk-9ec0e.appspot.com/Images");
 
 
     private EditText npTitleIn;
@@ -206,6 +206,17 @@ public class NewPostActivity extends AppCompatActivity {
         return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
     }
     private void fileUploader(){
+//        npStorageRef.child("gs://onejunk-9ec0e.appspot.com/Images").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+//            @Override
+//            public void onSuccess(Uri uri) {
+//
+//            }
+//        }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception e) {
+//                //Handle errors if this works
+//            }
+//        });
         StorageReference Ref = npStorageRef.child(System.currentTimeMillis() + "." + getExtension(imageUri));
         Ref.putFile(imageUri)
 
