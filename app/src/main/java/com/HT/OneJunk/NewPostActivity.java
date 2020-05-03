@@ -168,6 +168,7 @@ public class NewPostActivity extends AppCompatActivity {
                 Log.d(TAG, "addPostToFirestore:success" + documentReference.getId());
                 Intent intent = new Intent(NewPostActivity.this, WelcomeActivity.class);
                 startActivity(intent);
+                Toast.makeText(NewPostActivity.this, "Post added!", Toast.LENGTH_SHORT).show();
             }
         })
         .addOnFailureListener(new OnFailureListener() {
