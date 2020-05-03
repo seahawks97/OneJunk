@@ -36,10 +36,11 @@ import java.util.Date;
 public class NewPostActivity extends AppCompatActivity {
 
     private static final String TAG = "NewPostActivity";
+    private static final String JUNK = "junk";
     private FirebaseFirestore npDb = FirebaseFirestore.getInstance();
     private FirebaseUser npUser = FirebaseAuth.getInstance().getCurrentUser();
 
-    private StorageReference npStorageRef = FirebaseStorage.getInstance().getReference("Images");
+    private StorageReference npStorageRef = FirebaseStorage.getInstance().getReferenceFromUrl("gs://onejunk-9ec0e.appspot.com/Images");
 
 
     private EditText npTitleIn;
@@ -65,6 +66,9 @@ public class NewPostActivity extends AppCompatActivity {
         npPriceIn = findViewById(R.id.price_in);
         npImageUpload = (Button) findViewById(R.id.imageUpload);
         npImage = (ImageView)findViewById(R.id.image);
+
+        // if coming from an intent, populate the fields
+        // change submit button text to "update"
 
         npImageUpload.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,8 +149,11 @@ public class NewPostActivity extends AppCompatActivity {
         Item post = new Item(title, desc, price, userID, new Date(), image);
 
         Toast.makeText(this, "Adding " + title + "...", Toast.LENGTH_SHORT).show();
+
+        // somewhere around here, if intent exists, just update the post
+
         // add to collection
-        npDb.collection("junk").add(post)
+        npDb.collection(JUNK).add(post)
         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
@@ -162,7 +169,8 @@ public class NewPostActivity extends AppCompatActivity {
         });
 
     }
-    public void cancelPost (View view){
+
+    public void cancelPost (View view) {
         // https://stackoverflow.com/a/13511580/10072355
         AlertDialog.Builder b1 = new AlertDialog.Builder(NewPostActivity.this);
         b1.setMessage("Are you sure you want to cancel making this post?");
@@ -180,7 +188,7 @@ public class NewPostActivity extends AppCompatActivity {
                 }
         );
         b1.setNegativeButton(
-                "No, go back",
+                "No, keep editing",
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

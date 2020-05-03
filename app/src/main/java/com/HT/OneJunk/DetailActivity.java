@@ -101,7 +101,7 @@ public class DetailActivity extends AppCompatActivity {
                     seller.setText(item.getSeller());
 
                     // if the post email id matches the current user id, enable buttons
-                    if (isMyPost(seller.getText().toString())) {
+                    if (isMyPost(item.getSeller())) {
                         // enable edit button
                         Button editBtn = findViewById(R.id.edit_button);
                         editBtn.setClickable(true);
@@ -164,15 +164,29 @@ public class DetailActivity extends AppCompatActivity {
 
     public void editPost(View view) {
         // code needed here for when a user wants to edit their post
-        // Go to NewPostActivity, bring all the data with as an intent
+        // Go to NewPostActivity, bring all the data with as an intent?
+        // or just go to EditPostActivity?
+
+        // Attempt 1: Using intents
+        Intent intent = new Intent(DetailActivity.this, NewPostActivity.class);
+        TextView title = findViewById(R.id.title_in);
+        TextView desc = findViewById(R.id.description_in);
+        TextView price = findViewById(R.id.price_in);
+        intent.putExtra("title", title.getText());
+        intent.putExtra("description", desc.getText());
+        intent.putExtra("price", price.getText());
+        // need to get the photo(s) as well
+
+        startActivity(intent);
+
     }
 
     public void deletePost(View view) {
         // https://stackoverflow.com/a/13511580/10072355
+        // Create an alert popup to confirm user wants to delete the post
         AlertDialog.Builder b1 = new AlertDialog.Builder(DetailActivity.this);
         b1.setMessage("Are you sure you want to delete this post?");
         b1.setCancelable(true);
-
         b1.setPositiveButton(
                 "Yes, delete",
                 new DialogInterface.OnClickListener() {
@@ -197,7 +211,7 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private boolean isMyPost(String email) {
-        String curEmail= dUser.getEmail();
+        String curEmail = dUser.getEmail();
         return (curEmail.equals(email));
     }
 
