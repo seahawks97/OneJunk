@@ -42,7 +42,7 @@ public class DetailActivity extends AppCompatActivity {
     private final FirebaseFirestore mDb = FirebaseFirestore.getInstance();
     private FirebaseUser dUser = FirebaseAuth.getInstance().getCurrentUser();
 
-    private List<Image> imageList = new ArrayList<>();
+    private List<Item> imageList = new ArrayList<>();
     private int mCurrentImage = 0;
 
     private ImageView mImageView;
@@ -64,7 +64,7 @@ public class DetailActivity extends AppCompatActivity {
                 if (task.isSuccessful()){
                     imageList = new ArrayList<>();
                     for(QueryDocumentSnapshot document : task.getResult()){
-                        Image image = document.toObject(Image.class);
+                        Item image = document.toObject(Item.class);
                         imageList.add(image);
                     }
                     updateUI(mCurrentImage);
@@ -73,6 +73,20 @@ public class DetailActivity extends AppCompatActivity {
                 }
             }
         });
+
+//        mStorageRef.getBytes(Long.MAX_VALUE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+//            @Override
+//            public void onSuccess(byte[] bytes) {
+//
+//            }
+//        }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception e) {
+//                //Handle errors if this works
+//            }
+//        });
+
+
 
         Intent intent = getIntent();
         String itemId = intent.getStringExtra("itemId");
@@ -126,8 +140,9 @@ public class DetailActivity extends AppCompatActivity {
             mImageView.setVisibility(View.GONE);
         }else{
             mImageView.setVisibility(View.VISIBLE);
-            StorageReference image = mStorageRef.child(imageList.get(imageNum).getImageFile());
+            StorageReference image = mStorageRef.child(imageList.get(imageNum).getImage());
             GlideApp.with(DetailActivity.this).load(image).into(mImageView);
+
         }
     }
     @Override

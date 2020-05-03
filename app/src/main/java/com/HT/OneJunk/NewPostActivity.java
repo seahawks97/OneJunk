@@ -39,7 +39,7 @@ public class NewPostActivity extends AppCompatActivity {
     private FirebaseFirestore npDb = FirebaseFirestore.getInstance();
     private FirebaseUser npUser = FirebaseAuth.getInstance().getCurrentUser();
 
-    private StorageReference npStorageRef = FirebaseStorage.getInstance().getReference("Images");
+    private StorageReference npStorageRef = FirebaseStorage.getInstance().getReference();
 
 
     private EditText npTitleIn;
@@ -63,19 +63,19 @@ public class NewPostActivity extends AppCompatActivity {
         npTitleIn = findViewById(R.id.title_in);
         npDescriptionIn = findViewById(R.id.description_in);
         npPriceIn = findViewById(R.id.price_in);
-        npImageUpload = (Button) findViewById(R.id.imageUpload);
-        npImage = (ImageView)findViewById(R.id.image);
+        npImageUpload = findViewById(R.id.imageUpload);
+        npImage = findViewById(R.id.image);
 
         npImageUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Filechooser();
+                FileChooser();
             }
         });
 
     }
 
-    private void Filechooser(){
+    private void FileChooser(){
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -102,6 +102,13 @@ public class NewPostActivity extends AppCompatActivity {
         } else { // title is filled in
             npTitleIn.setError(null);
         }
+//        String image = imageUri.getLastPathSegment();
+//        if (TextUtils.isEmpty(image)) {
+//            imageUri.setError("Required.");
+//            valid = false;
+//        } else { // image is uploaded
+//            imageUri.setError(null);
+//        }
 
         String desc = npDescriptionIn.getText().toString();
         if (TextUtils.isEmpty(desc)) {
@@ -136,7 +143,7 @@ public class NewPostActivity extends AppCompatActivity {
         String title = npTitleIn.getText().toString();
         String desc = npDescriptionIn.getText().toString();
         String price = npPriceIn.getText().toString();
-        String image = imageUri.toString();
+        String image = imageUri.getLastPathSegment();
 
         // get userID
         String userID = npUser.getEmail();
