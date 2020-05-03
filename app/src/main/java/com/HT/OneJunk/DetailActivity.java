@@ -128,6 +128,11 @@ public class DetailActivity extends AppCompatActivity {
                         Button delBtn = findViewById(R.id.delete_button);
                         delBtn.setClickable(true);
                         delBtn.setVisibility(View.VISIBLE);
+
+                        // disable contact button, since you'd just be emailing yourself
+                        Button contBtn = findViewById(R.id.contact_button);
+                        contBtn.setClickable(false);
+                        contBtn.setVisibility(View.GONE);
                     }
 
                 } else {
@@ -186,17 +191,23 @@ public class DetailActivity extends AppCompatActivity {
         // or just go to EditPostActivity?
 
         // Attempt 1: Using intents
-        /*Intent intent = new Intent(DetailActivity.this, NewPostActivity.class);
+        Intent intent = new Intent(DetailActivity.this, NewPostActivity.class);
         TextView title = findViewById(R.id.title_in);
         TextView desc = findViewById(R.id.description_in);
         TextView price = findViewById(R.id.price_in);
         intent.putExtra("title", title.getText());
         intent.putExtra("description", desc.getText());
         intent.putExtra("price", price.getText());
+
+        // getting old itemID
+        Intent fromWA = getIntent();
+        String oldID = fromWA.getStringExtra("itemId");
+        intent.putExtra("oldID", oldID);
+
         // need to get the photo(s) as well
 
         startActivity(intent);
-*/
+
     }
 
     public void deletePost(View view) {
@@ -213,6 +224,11 @@ public class DetailActivity extends AppCompatActivity {
                         // Get item
                         Intent fromWA = getIntent();
                         String itemId = fromWA.getStringExtra("itemId");
+
+                        // https://firebase.google.com/docs/storage/android/delete-files
+                        // delete the picture from storage
+                        StorageReference picRef = mStorageRef.child("images/");
+                        // MORE CODE NEEDED HERE
 
                         // https://firebase.google.com/docs/firestore/manage-data/delete-data
                         // delete the item from the DB
