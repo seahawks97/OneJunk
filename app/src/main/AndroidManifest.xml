@@ -9,17 +9,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MyPosts"
-            android:label="@string/my_posts"
-            android:parentActivityName=".WelcomeActivity">
+        <activity android:name=".EditPostActivity"
+            android:label="@string/edit_post"
+            android:parentActivityName=".MyPosts">
         </activity>
         <activity
-            android:name=".DetailActivity"
+            android:name=".MyPosts"
+            android:label="@string/my_posts"
             android:parentActivityName=".WelcomeActivity"></activity>
+        <activity
+            android:name=".DetailActivity"
+            android:parentActivityName=".WelcomeActivity" />
         <activity
             android:name=".NewPostActivity"
             android:label="@string/create_new_post_title"
-            android:parentActivityName=".WelcomeActivity"></activity>
+            android:parentActivityName=".WelcomeActivity" />
         <activity android:name=".WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

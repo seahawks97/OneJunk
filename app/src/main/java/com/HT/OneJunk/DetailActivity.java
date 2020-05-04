@@ -69,6 +69,7 @@ public class DetailActivity extends AppCompatActivity {
                     for(QueryDocumentSnapshot document : task.getResult()){
                         Item image = document.toObject(Item.class);
                         imageList.add(image);
+                        updateUI(image);
                     }
                 } else {
                     Log.w(TAG, "Error getting documents: ", task.getException());
@@ -154,16 +155,16 @@ public class DetailActivity extends AppCompatActivity {
         });
     }
 
-//    private void updateUI(Item item){
-//        if(imageList.isEmpty()||item.getImage() == null){
-//            mImageView.setVisibility(View.GONE);
-//        }else{
-//            mImageView.setVisibility(View.VISIBLE);
-//            StorageReference image = mStorageRef.child(item.getImage());
-//            GlideApp.with(DetailActivity.this).load(image).into(mImageView);
-//
-//        }
-//    }
+    private void updateUI(Item item){
+        if(imageList.isEmpty()||item.getImage() == null){
+            mImageView.setVisibility(View.GONE);
+        }else{
+            mImageView.setVisibility(View.VISIBLE);
+            StorageReference image = mStorageRef.child(item.getImage());
+            GlideApp.with(DetailActivity.this).load(image).into(mImageView);
+
+        }
+    }
     @Override
     protected void onResume(){
         super.onResume();
@@ -204,7 +205,7 @@ public class DetailActivity extends AppCompatActivity {
         // or just go to EditPostActivity?
 
         // Attempt 1: Using intents
-        Intent intent = new Intent(DetailActivity.this, NewPostActivity.class);
+        Intent intent = new Intent(DetailActivity.this, EditPostActivity.class);
         TextView title = findViewById(R.id.title_in);
         TextView desc = findViewById(R.id.description_in);
         TextView price = findViewById(R.id.price_in);

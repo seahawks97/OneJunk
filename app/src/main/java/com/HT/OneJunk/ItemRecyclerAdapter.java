@@ -3,6 +3,7 @@ package com.HT.OneJunk;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -36,28 +37,25 @@ public class ItemRecyclerAdapter extends FirestoreRecyclerAdapter<Item, ItemRecy
     class ItemViewHolder extends RecyclerView.ViewHolder{
         final CardView view;
         final TextView title;
-        //final TextView description;
         final TextView price;
-        //final TextView seller;
-        //final TextView createdOn;
+        final ImageView image;
+
 
         ItemViewHolder(CardView v) {
             super(v);
             view = v;
             title = v.findViewById(R.id.title_in);
-            //description = v.findViewById(R.id.description_in);
             price = v.findViewById(R.id.price_in);
-            //seller = v.findViewById(R.id.seller);
-            //createdOn = v.findViewById(R.id.created_on);
+            image = v.findViewById(R.id.image);
+
         }
     }
     @Override
     public void onBindViewHolder(final ItemViewHolder holder, @NonNull int position, @NonNull final Item item){
         holder.title.setText(item.getTitle());
-        //holder.description.setText(item.getDescription());
         holder.price.setText(item.getPrice());
-        //holder.seller.setText(item.getSeller());
-        //holder.createdOn.setText(holder.view.getContext().getString(R.string.created_on, format.format(item.getCreatedTime())));
+//        holder.image.setText(item.getImage());
+
         if (listener != null){
             holder.view.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -72,4 +70,5 @@ public class ItemRecyclerAdapter extends FirestoreRecyclerAdapter<Item, ItemRecy
         CardView v = (CardView) LayoutInflater.from(parent.getContext()).inflate(R.layout.card_captioned_image, parent, false);
         return new ItemViewHolder(v);
     }
+
 }

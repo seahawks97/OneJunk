@@ -1,41 +1,41 @@
 package com.HT.OneJunk;
 
-import android.content.ContentResolver;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Log;
-import android.view.View;
-import android.webkit.MimeTypeMap;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Toast;
+        import android.content.ContentResolver;
+        import android.content.DialogInterface;
+        import android.content.Intent;
+        import android.net.Uri;
+        import android.os.Bundle;
+        import android.text.TextUtils;
+        import android.util.Log;
+        import android.view.View;
+        import android.webkit.MimeTypeMap;
+        import android.widget.Button;
+        import android.widget.EditText;
+        import android.widget.ImageView;
+        import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+        import androidx.annotation.NonNull;
+        import androidx.annotation.Nullable;
+        import androidx.appcompat.app.ActionBar;
+        import androidx.appcompat.app.AlertDialog;
+        import androidx.appcompat.app.AppCompatActivity;
+        import androidx.appcompat.widget.Toolbar;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
+        import com.google.android.gms.tasks.OnFailureListener;
+        import com.google.android.gms.tasks.OnSuccessListener;
+        import com.google.firebase.auth.FirebaseAuth;
+        import com.google.firebase.auth.FirebaseUser;
+        import com.google.firebase.firestore.DocumentReference;
+        import com.google.firebase.firestore.FirebaseFirestore;
+        import com.google.firebase.storage.FirebaseStorage;
+        import com.google.firebase.storage.StorageReference;
+        import com.google.firebase.storage.UploadTask;
 
-import java.util.Date;
+        import java.util.Date;
 
-public class NewPostActivity extends AppCompatActivity {
+public class EditPostActivity extends AppCompatActivity {
 
-    private static final String TAG = "NewPostActivity";
+    private static final String TAG = "EditPostActivity";
     private static final String JUNK = "junk";
     private FirebaseFirestore npDb = FirebaseFirestore.getInstance();
     private FirebaseUser npUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -58,7 +58,7 @@ public class NewPostActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_post);
+        setContentView(R.layout.activity_edit_post);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
@@ -192,11 +192,11 @@ public class NewPostActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
-                            Log.d(TAG, "addPostToFirestore:success" + documentReference.getId());
-                            Intent intent = new Intent(NewPostActivity.this, WelcomeActivity.class);
-                            startActivity(intent);
-                            Toast.makeText(NewPostActivity.this, "Post added!", Toast.LENGTH_SHORT).show();
-                        }
+                        Log.d(TAG, "addPostToFirestore:success" + documentReference.getId());
+                        Intent intent = new Intent(EditPostActivity.this, WelcomeActivity.class);
+                        startActivity(intent);
+                        Toast.makeText(EditPostActivity.this, "Post added!", Toast.LENGTH_SHORT).show();
+                    }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -261,8 +261,8 @@ public class NewPostActivity extends AppCompatActivity {
 
     public void cancelPost (View view) {
         // https://stackoverflow.com/a/13511580/10072355
-        AlertDialog.Builder b1 = new AlertDialog.Builder(NewPostActivity.this);
-        b1.setMessage("Are you sure you want to cancel making this post?");
+        AlertDialog.Builder b1 = new AlertDialog.Builder(EditPostActivity.this);
+        b1.setMessage("Are you sure you want to cancel editing this post?");
         b1.setCancelable(true);
 
         b1.setPositiveButton(
@@ -271,7 +271,7 @@ public class NewPostActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         // Just go back to WelcomeActivity, no saving to Firestore
-                        Intent intent = new Intent(NewPostActivity.this, WelcomeActivity.class);
+                        Intent intent = new Intent(EditPostActivity.this, MyPosts.class);
                         startActivity(intent);
                     }
                 }
@@ -304,7 +304,7 @@ public class NewPostActivity extends AppCompatActivity {
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         // Get a URL to the uploaded content
                         //Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                        Toast.makeText(NewPostActivity.this, "Image uploaded", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(EditPostActivity.this, "Image uploaded", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
