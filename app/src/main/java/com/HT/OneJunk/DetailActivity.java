@@ -70,7 +70,6 @@ public class DetailActivity extends AppCompatActivity {
                         Item image = document.toObject(Item.class);
                         imageList.add(image);
                     }
-                    updateUI(mCurrentImage);
                 } else {
                     Log.w(TAG, "Error getting documents: ", task.getException());
                 }
@@ -117,6 +116,18 @@ public class DetailActivity extends AppCompatActivity {
                     TextView seller = findViewById(R.id.seller_in);
                     seller.setText(item.getSeller());
 
+                    String imageS = item.getImage();
+                    if(item.getImage() == null){
+                        mImageView.setVisibility(View.GONE);
+                    }else{
+                        mImageView.setVisibility(View.VISIBLE);
+                        StorageReference image = mStorageRef.child(item.getImage());
+                        GlideApp.with(DetailActivity.this).load(image).into(mImageView);
+
+                    }
+
+//                    updateUI(item);
+
                     // if the post email id matches the current user id, enable buttons
                     if (isMyPost(item.getSeller())) {
                         // enable edit button
@@ -143,20 +154,20 @@ public class DetailActivity extends AppCompatActivity {
         });
     }
 
-    private void updateUI(int imageNum){
-        if(imageList.isEmpty()||imageNum<0||imageNum>imageList.size() ){
-            mImageView.setVisibility(View.GONE);
-        }else{
-            mImageView.setVisibility(View.VISIBLE);
-            StorageReference image = mStorageRef.child(imageList.get(imageNum).getImage());
-            GlideApp.with(DetailActivity.this).load(image).into(mImageView);
-
-        }
-    }
+//    private void updateUI(Item item){
+//        if(imageList.isEmpty()||item.getImage() == null){
+//            mImageView.setVisibility(View.GONE);
+//        }else{
+//            mImageView.setVisibility(View.VISIBLE);
+//            StorageReference image = mStorageRef.child(item.getImage());
+//            GlideApp.with(DetailActivity.this).load(image).into(mImageView);
+//
+//        }
+//    }
     @Override
     protected void onResume(){
         super.onResume();
-        updateUI(mCurrentImage);
+//        updateUI(mCurrentImage);
     }
     @Override
     public void onSaveInstanceState(Bundle outState, PersistableBundle outPeristentState){
@@ -168,11 +179,11 @@ public class DetailActivity extends AppCompatActivity {
     protected void onRestoreInstanceState(Bundle savedInstanceState){
         super.onRestoreInstanceState(savedInstanceState);
         GlideApp.with(DetailActivity.this).resumeRequests();
-
-        if(savedInstanceState != null){
-            mCurrentImage = savedInstanceState.getInt(CURRENT_IMAGE);
-
-        }
+//
+//        if(savedInstanceState != null){
+//            mCurrentImage = savedInstanceState.getInt(CURRENT_IMAGE);
+//
+//        }
     }
 
     public void contact(View view){
