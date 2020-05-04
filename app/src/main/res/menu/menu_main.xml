@@ -6,4 +6,15 @@ xmlns:app="http://schemas.android.com.apk.res-auto">
     android:icon="@drawable/abc_vector_test"
     android:orderInCategory="1"
     app:showAsAction="ifRoom"/>
+<item android:id="@+id/my_posts"
+    android:title="@string/my_posts"
+    android:icon="@drawable/abc_vector_test"
+    android:orderInCategory="2"
+    app:showAsAction="ifRoom"/>
+    />
+<item android:id="@+id/logout"
+    android:title="@string/logout"
+    android:icon="@drawable/abc_vector_test"
+    android:orderInCategory="3"
+    app:showAsAction="ifRoom"/>
 </menu>

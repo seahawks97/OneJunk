@@ -28,6 +28,7 @@
     <string name="contact_button">Contact Seller</string>
     <string name="edit_button">Edit Post</string>
     <string name="delete_button">Delete Post</string>
+    <string name="my_posts">My posts</string>
 
 
 </resources>

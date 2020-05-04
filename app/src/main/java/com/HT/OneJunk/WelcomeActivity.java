@@ -1,5 +1,6 @@
 package com.HT.OneJunk;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -108,10 +110,6 @@ public class WelcomeActivity extends AppCompatActivity {
         }
     }
 
-    public void signOut(View view) {
-        mAuth.signOut();
-        updateUI(null);
-    }
 
     private boolean validateForm() {
         boolean valid = true;
@@ -192,14 +190,53 @@ public class WelcomeActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
     @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        switch (item.getItemId()){
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
             case R.id.action_create_new_post:
                 Intent aboutIntent = new Intent(WelcomeActivity.this, NewPostActivity.class);
                 startActivity(aboutIntent);
                 return true;
-            default: return super.onOptionsItemSelected(item);
+//            default:
+//                return super.onOptionsItemSelected(item);
+
+            case R.id.my_posts:
+                Intent intent = new Intent(WelcomeActivity.this, MyPosts.class);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+
+            case R.id.logout:
+                AlertDialog.Builder b1 = new AlertDialog.Builder(this);
+                b1.setMessage("Are you sure you want to logout?");
+                b1.setCancelable(true);
+
+                b1.setPositiveButton(
+                        "Yes",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int id) {
+                                // Logout
+                                mAuth.signOut();
+                                updateUI(null);
+                                Toast.makeText(WelcomeActivity.this, "Logged out", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                );
+                b1.setNegativeButton(
+                        "No",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        }
+                );
+
+                AlertDialog alert1 = b1.create();
+                alert1.show();
         }
+        return true;
     }
 
 }

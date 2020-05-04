@@ -41,7 +41,7 @@ public class NewPostActivity extends AppCompatActivity {
     private FirebaseUser npUser = FirebaseAuth.getInstance().getCurrentUser();
 
     // Whenever you update files, make sure to change the Storage link if it doesn't link to your Storage
-    private StorageReference npStorageRefImg = FirebaseStorage.getInstance().getReferenceFromUrl("gs://onejunk-d8d6f.appspot.com/Images");
+    private StorageReference npStorageRefImg = FirebaseStorage.getInstance().getReferenceFromUrl("gs://onejunk-9ec0e.appspot.com");
     private StorageReference npStorageRefPost = FirebaseStorage.getInstance().getReference();
 
     private EditText npTitleIn;
@@ -282,7 +282,7 @@ public class NewPostActivity extends AppCompatActivity {
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         // Get a URL to the uploaded content
                         //Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                        //Toast.makeText(this, "Post uploaded", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(NewPostActivity.this, "Post uploaded", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
