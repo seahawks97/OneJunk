@@ -177,9 +177,11 @@ public class DetailActivity extends AppCompatActivity {
 
     public void contact(View view){
         Intent intent = new Intent(Intent.ACTION_SENDTO);
-        intent.setData(Uri.parse("mailto:"));
-        intent.putExtra(Intent.EXTRA_EMAIL, R.id.seller_in);
-        intent.putExtra(Intent.EXTRA_SUBJECT, R.id.title_in);
+        TextView seller = findViewById(R.id.seller_in);
+        TextView tittle = findViewById(R.id.title_in);
+        intent.setData(Uri.parse("mailto:" + seller.getText()));
+        //intent.putExtra(Intent.EXTRA_EMAIL, seller.getText());
+        intent.putExtra(Intent.EXTRA_SUBJECT, tittle.getText());
         if (intent.resolveActivity(getPackageManager())!=null){
             startActivity(intent);
         }

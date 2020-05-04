@@ -196,8 +196,6 @@ public class WelcomeActivity extends AppCompatActivity {
                 Intent aboutIntent = new Intent(WelcomeActivity.this, NewPostActivity.class);
                 startActivity(aboutIntent);
                 return true;
-//            default:
-//                return super.onOptionsItemSelected(item);
 
             case R.id.my_posts:
                 Intent intent = new Intent(WelcomeActivity.this, MyPosts.class);

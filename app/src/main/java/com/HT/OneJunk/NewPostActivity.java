@@ -43,7 +43,7 @@ public class NewPostActivity extends AppCompatActivity {
     // Whenever you update files, make sure to change the Storage link if it doesn't link to your Storage
     // Joe: 9ec0e
     // Steven: d8d6f
-    private StorageReference npStorageRefImg = FirebaseStorage.getInstance().getReferenceFromUrl("gs://onejunk-d8d6f.appspot.com");
+    private StorageReference npStorageRefImg = FirebaseStorage.getInstance().getReferenceFromUrl("gs://onejunk-9ec0e.appspot.com");
     private StorageReference npStorageRefPost = FirebaseStorage.getInstance().getReference();
 
     private EditText npTitleIn;
@@ -295,5 +295,6 @@ public class NewPostActivity extends AppCompatActivity {
                     }
                 });
     }
+
 
 }
