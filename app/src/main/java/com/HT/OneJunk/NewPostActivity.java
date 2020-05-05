@@ -78,15 +78,15 @@ public class NewPostActivity extends AppCompatActivity {
             String newTitle = fromDA.getStringExtra("title");
             String newDesc = fromDA.getStringExtra("description");
             String newPrice = fromDA.getStringExtra("price");
-            String newImg = fromDA.getStringExtra("imageUriRef");
-            Log.d(JUNK, "NEWIMG: " + newImg);
+//            String newImg = fromDA.getStringExtra("imageUriRef");
+//            Log.d(JUNK, "NEWIMG: " + newImg);
 
             // set the fields
             npTitleIn.setText(newTitle);
             npDescriptionIn.setText(newDesc);
             npPriceIn.setText(newPrice);
-            imageUri = Uri.parse(newImg);
-            npImage.setImageURI(imageUri); // places the image into the Image View in NPA
+//            imageUri = Uri.parse(newImg);
+//            npImage.setImageURI(imageUri); // places the image into the Image View in NPA
 
         }
 
