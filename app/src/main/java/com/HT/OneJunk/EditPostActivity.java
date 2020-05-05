@@ -188,74 +188,74 @@ public class EditPostActivity extends AppCompatActivity {
         // somewhere around here, if intent exists, just update the post
 
         // add to collection
-        npDb.collection(JUNK).add(post)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Log.d(TAG, "addPostToFirestore:success" + documentReference.getId());
-                        Intent intent = new Intent(EditPostActivity.this, WelcomeActivity.class);
-                        startActivity(intent);
-                        Toast.makeText(EditPostActivity.this, "Post added!", Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "addPostToFirestore:failure", e);
-                    }
-                });
-
-
 //        npDb.collection(JUNK).add(post)
-//        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-//            @Override
-//            public void onSuccess(DocumentReference documentReference) {
-//                // if it came from an intent, delete the old post
-        // LL: I wasn't sure what you wanted to do here so I commented it out for now.
-//                Intent fromDA = getIntent();
-//                if (fromDA != null) {
-//                    String oldID = fromDA.getStringExtra("oldID");
-//
-//                    // https://firebase.google.com/docs/storage/android/delete-files
-//                    // delete the picture from storage
-//                    StorageReference picRef = npStorageRefPost.child("images/");
-//                    // TODO: Get picture from info & delete it too
-//
-//                    // https://firebase.google.com/docs/firestore/manage-data/delete-data
-//                    // delete the item from the DB
-//                    npDb.collection(JUNK).document(oldID)
-//                            .delete()
-//                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                                @Override
-//                                public void onSuccess(Void aVoid) {
-//                                    Log.d(TAG, "DocumentSnapshot successfully deleted!");
-//                                    Intent intent = new Intent(NewPostActivity.this, WelcomeActivity.class);
-//                                    startActivity(intent);
-//                                    Toast.makeText(NewPostActivity.this, "Old post deleted!", Toast.LENGTH_SHORT).show();
-//                                }
-//                            })
-//                            .addOnFailureListener(new OnFailureListener() {
-//                                @Override
-//                                public void onFailure(@NonNull Exception e) {
-//                                    Log.w(TAG, "Error deleting document", e);
-//                                    Toast.makeText(NewPostActivity.this, "Unable to delete old post", Toast.LENGTH_SHORT).show();
-//                                }
-//                            });
-//                // end extra intent deletion block
-//                } else {
-//                    Log.d(TAG, "addPostToFirestore:success" + documentReference.getId());
-//                    Intent intent = new Intent(NewPostActivity.this, WelcomeActivity.class);
-//                    startActivity(intent);
-//                    Toast.makeText(NewPostActivity.this, "Post added!", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        })
-//        .addOnFailureListener(new OnFailureListener() {
-//            @Override
-//            public void onFailure(@NonNull Exception e) {
-//                Log.w(TAG, "addPostToFirestore:failure", e);
-//            }
-//        });
+//                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+//                    @Override
+//                    public void onSuccess(DocumentReference documentReference) {
+//                        Log.d(TAG, "addPostToFirestore:success" + documentReference.getId());
+//                        Intent intent = new Intent(EditPostActivity.this, WelcomeActivity.class);
+//                        startActivity(intent);
+//                        Toast.makeText(EditPostActivity.this, "Post added!", Toast.LENGTH_SHORT).show();
+//                    }
+//                })
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        Log.w(TAG, "addPostToFirestore:failure", e);
+//                    }
+//                });
+
+
+        npDb.collection(JUNK).add(post)
+        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+            @Override
+            public void onSuccess(DocumentReference documentReference) {
+                // if it came from an intent, delete the old post
+         //LL: I wasn't sure what you wanted to do here so I commented it out for now.
+                Intent fromDA = getIntent();
+                if (fromDA != null) {
+                    String oldID = fromDA.getStringExtra("oldID");
+
+                    // https://firebase.google.com/docs/storage/android/delete-files
+                    // delete the picture from storage
+                    StorageReference picRef = npStorageRefPost.child("images/");
+                    // TODO: Get picture from info & delete it too
+
+                    // https://firebase.google.com/docs/firestore/manage-data/delete-data
+                    // delete the item from the DB
+                    npDb.collection(JUNK).document(oldID)
+                            .delete()
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d(TAG, "DocumentSnapshot successfully deleted!");
+                                    Intent intent = new Intent(EditPostActivity.this, WelcomeActivity.class);
+                                    startActivity(intent);
+                                    Toast.makeText(EditPostActivity.this, "Old post deleted!", Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w(TAG, "Error deleting document", e);
+                                    Toast.makeText(EditPostActivity.this, "Unable to delete old post", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                // end extra intent deletion block
+                } else {
+                    Log.d(TAG, "addPostToFirestore:success" + documentReference.getId());
+                    Intent intent = new Intent(EditPostActivity.this, WelcomeActivity.class);
+                    startActivity(intent);
+                    Toast.makeText(EditPostActivity.this, "Post added!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        })
+        .addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.w(TAG, "addPostToFirestore:failure", e);
+            }
+        });
 
     }
 
