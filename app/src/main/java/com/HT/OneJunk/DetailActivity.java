@@ -47,6 +47,7 @@ public class DetailActivity extends AppCompatActivity {
 
     private List<Item> imageList = new ArrayList<>();
     private int mCurrentImage = 0;
+    private Item thisItem;
 
     private ImageView mImageView;
 
@@ -103,6 +104,7 @@ public class DetailActivity extends AppCompatActivity {
                     DocumentSnapshot document = task.getResult();
                     Log.d(TAG, "Document Snapshot data:" + document.getData());
                     Item item = document.toObject(Item.class);
+                    thisItem = item;
                     Log.d(TAG, "Converted document to Item class. Item ID: " + item.id);
 
                     TextView title_in = findViewById(R.id.title_in);
@@ -118,11 +120,11 @@ public class DetailActivity extends AppCompatActivity {
                     seller.setText(item.getSeller());
 
                     String imageS = item.getImage();
-                    if(item.getImage() == null){
+                    if(imageS == null){
                         mImageView.setVisibility(View.GONE);
                     }else{
                         mImageView.setVisibility(View.VISIBLE);
-                        StorageReference image = mStorageRef.child(item.getImage());
+                        StorageReference image = mStorageRef.child(imageS);
                         GlideApp.with(DetailActivity.this).load(image).into(mImageView);
 
                     }
@@ -218,7 +220,9 @@ public class DetailActivity extends AppCompatActivity {
         String oldID = fromWA.getStringExtra("itemId");
         intent.putExtra("oldID", oldID);
 
-        // need to get the photo(s) as well
+        // image stuff
+        StorageReference imgLoc = mStorageRef.child(thisItem.getImage());
+        intent.putExtra("imageUriRef", imgLoc.toString());
 
         startActivity(intent);
 

@@ -78,11 +78,15 @@ public class NewPostActivity extends AppCompatActivity {
             String newTitle = fromDA.getStringExtra("title");
             String newDesc = fromDA.getStringExtra("description");
             String newPrice = fromDA.getStringExtra("price");
+            String newImg = fromDA.getStringExtra("imageUriRef");
+            Log.d(JUNK, "NEWIMG: " + newImg);
 
             // set the fields
             npTitleIn.setText(newTitle);
             npDescriptionIn.setText(newDesc);
             npPriceIn.setText(newPrice);
+            imageUri = Uri.parse(newImg);
+            npImage.setImageURI(imageUri); // places the image into the Image View in NPA
 
         }
 
@@ -109,12 +113,12 @@ public class NewPostActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==1 && resultCode==RESULT_OK && data!=null && data.getData()!=null){
             imageUri = data.getData();
-            String imageTxtRef = imageUri.toString(); // image URI string
-            Log.d(JUNK, "IMAGE URI CODE: " + imageTxtRef);
+            //String imageTxtRef = imageUri.toString(); // image URI string
+            //Log.d(JUNK, "IMAGE URI CODE: " + imageTxtRef);
             npImage.setImageURI(imageUri); // places the image into the Image View in NPA
 
-            final StorageReference photoRef = npStorageRefPost.child(imageUri.getLastPathSegment());
-            photoRef.putFile(imageUri);
+//            final StorageReference photoRef = npStorageRefPost.child(imageUri.getLastPathSegment());
+//            photoRef.putFile(imageUri);
         }
     }
 
