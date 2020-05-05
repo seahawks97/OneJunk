@@ -109,8 +109,12 @@ public class NewPostActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==1 && resultCode==RESULT_OK && data!=null && data.getData()!=null){
             imageUri = data.getData();
-            npImage.setImageURI(imageUri);
+            String imageTxtRef = imageUri.toString(); // image URI string
+            Log.d(JUNK, "IMAGE URI CODE: " + imageTxtRef);
+            npImage.setImageURI(imageUri); // places the image into the Image View in NPA
 
+            final StorageReference photoRef = npStorageRefPost.child(imageUri.getLastPathSegment());
+            photoRef.putFile(imageUri);
         }
     }
 
@@ -135,7 +139,12 @@ public class NewPostActivity extends AppCompatActivity {
 //        }else {//image is uploaded
 //            valid = true;
 //        }
-
+        if (npImage.getHeight() == 0) {
+            npImageUpload.setError("Required.");
+            valid = false;
+        } else {
+            npImageUpload.setError(null);
+        }
 
         String desc = npDescriptionIn.getText().toString();
         if (TextUtils.isEmpty(desc)) {
