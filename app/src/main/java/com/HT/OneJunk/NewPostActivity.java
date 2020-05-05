@@ -40,10 +40,6 @@ public class NewPostActivity extends AppCompatActivity {
     private FirebaseFirestore npDb = FirebaseFirestore.getInstance();
     private FirebaseUser npUser = FirebaseAuth.getInstance().getCurrentUser();
 
-    // Whenever you update files, make sure to change the Storage link if it doesn't link to your Storage
-    // Joe: 9ec0e
-    // Steven: d8d6f
-//    private StorageReference npStorageRefImg = FirebaseStorage.getInstance().getReferenceFromUrl("gs://onejunk-9ec0e.appspot.com");
     private StorageReference npStorageRefPost = FirebaseStorage.getInstance().getReference();
 
     private EditText npTitleIn;
@@ -78,16 +74,11 @@ public class NewPostActivity extends AppCompatActivity {
             String newTitle = fromDA.getStringExtra("title");
             String newDesc = fromDA.getStringExtra("description");
             String newPrice = fromDA.getStringExtra("price");
-//            String newImg = fromDA.getStringExtra("imageUriRef");
-//            Log.d(JUNK, "NEWIMG: " + newImg);
 
             // set the fields
             npTitleIn.setText(newTitle);
             npDescriptionIn.setText(newDesc);
             npPriceIn.setText(newPrice);
-//            imageUri = Uri.parse(newImg);
-//            npImage.setImageURI(imageUri); // places the image into the Image View in NPA
-
         }
 
         npImageUpload.setOnClickListener(new View.OnClickListener() {
@@ -113,20 +104,14 @@ public class NewPostActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==1 && resultCode==RESULT_OK && data!=null && data.getData()!=null){
             imageUri = data.getData();
-            //String imageTxtRef = imageUri.toString(); // image URI string
-            //Log.d(JUNK, "IMAGE URI CODE: " + imageTxtRef);
             npImage.setImageURI(imageUri); // places the image into the Image View in NPA
 
-//            final StorageReference photoRef = npStorageRefPost.child(imageUri.getLastPathSegment());
-//            photoRef.putFile(imageUri);
         }
     }
 
     private boolean validateForm() {
         // Called when the user hits submit post
         boolean valid = true;
-
-//        String imageFileName = imageUri.getLastPathSegment() + '.' + getExtension(imageUri);
 
         String title = npTitleIn.getText().toString();
         if (TextUtils.isEmpty(title)) {
@@ -136,13 +121,6 @@ public class NewPostActivity extends AppCompatActivity {
             npTitleIn.setError(null);
         }
 
-//        String image = imageFileName.toString();
-//        if (TextUtils.isEmpty(image)) {
-//            imageFileName.setError("Required.");
-//            valid = false;
-//        }else {//image is uploaded
-//            valid = true;
-//        }
         if (npImage.getHeight() == 0) {
             npImageUpload.setError("Required.");
             valid = false;
@@ -183,8 +161,6 @@ public class NewPostActivity extends AppCompatActivity {
         String title = npTitleIn.getText().toString();
         String desc = npDescriptionIn.getText().toString();
         String price = npPriceIn.getText().toString();
-        // LL: This code is going to crash if the imageUri is null, so you need to validate that
-        // the user actually selected a picture in your validateForm() method.
         String imageFileName = imageUri.getLastPathSegment() + '.' + getExtension(imageUri);
         fileUploader(imageUri, STORAGE_IMAGE_ROOT, imageFileName);
 
@@ -218,62 +194,9 @@ public class NewPostActivity extends AppCompatActivity {
                     }
                 });
 
-
-//        npDb.collection(JUNK).add(post)
-//        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-//            @Override
-//            public void onSuccess(DocumentReference documentReference) {
-//                // if it came from an intent, delete the old post
-        // LL: I wasn't sure what you wanted to do here so I commented it out for now.
-//                Intent fromDA = getIntent();
-//                if (fromDA != null) {
-//                    String oldID = fromDA.getStringExtra("oldID");
-//
-//                    // https://firebase.google.com/docs/storage/android/delete-files
-//                    // delete the picture from storage
-//                    StorageReference picRef = npStorageRefPost.child("images/");
-//                    // TODO: Get picture from info & delete it too
-//
-//                    // https://firebase.google.com/docs/firestore/manage-data/delete-data
-//                    // delete the item from the DB
-//                    npDb.collection(JUNK).document(oldID)
-//                            .delete()
-//                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                                @Override
-//                                public void onSuccess(Void aVoid) {
-//                                    Log.d(TAG, "DocumentSnapshot successfully deleted!");
-//                                    Intent intent = new Intent(NewPostActivity.this, WelcomeActivity.class);
-//                                    startActivity(intent);
-//                                    Toast.makeText(NewPostActivity.this, "Old post deleted!", Toast.LENGTH_SHORT).show();
-//                                }
-//                            })
-//                            .addOnFailureListener(new OnFailureListener() {
-//                                @Override
-//                                public void onFailure(@NonNull Exception e) {
-//                                    Log.w(TAG, "Error deleting document", e);
-//                                    Toast.makeText(NewPostActivity.this, "Unable to delete old post", Toast.LENGTH_SHORT).show();
-//                                }
-//                            });
-//                // end extra intent deletion block
-//                } else {
-//                    Log.d(TAG, "addPostToFirestore:success" + documentReference.getId());
-//                    Intent intent = new Intent(NewPostActivity.this, WelcomeActivity.class);
-//                    startActivity(intent);
-//                    Toast.makeText(NewPostActivity.this, "Post added!", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        })
-//        .addOnFailureListener(new OnFailureListener() {
-//            @Override
-//            public void onFailure(@NonNull Exception e) {
-//                Log.w(TAG, "addPostToFirestore:failure", e);
-//            }
-//        });
-
     }
 
     public void cancelPost (View view) {
-        // https://stackoverflow.com/a/13511580/10072355
         AlertDialog.Builder b1 = new AlertDialog.Builder(NewPostActivity.this);
         b1.setMessage("Are you sure you want to cancel making this post?");
         b1.setCancelable(true);

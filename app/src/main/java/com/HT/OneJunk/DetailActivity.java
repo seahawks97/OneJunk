@@ -78,20 +78,6 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
-//        mStorageRef.getBytes(Long.MAX_VALUE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-//            @Override
-//            public void onSuccess(byte[] bytes) {
-//
-//            }
-//        }).addOnFailureListener(new OnFailureListener() {
-//            @Override
-//            public void onFailure(@NonNull Exception e) {
-//                //Handle errors if this works
-//            }
-//        });
-
-
-
         Intent intent = getIntent();
         String itemId = intent.getStringExtra("itemId");
         Log.d(TAG, "Requesting item details from Firestore for item with id" + itemId);
@@ -128,8 +114,6 @@ public class DetailActivity extends AppCompatActivity {
                         GlideApp.with(DetailActivity.this).load(image).into(mImageView);
 
                     }
-
-//                    updateUI(item);
 
                     // if the post email id matches the current user id, enable buttons
                     if (isMyPost(item.getSeller())) {
@@ -170,7 +154,7 @@ public class DetailActivity extends AppCompatActivity {
     @Override
     protected void onResume(){
         super.onResume();
-//        updateUI(mCurrentImage);
+
     }
     @Override
     public void onSaveInstanceState(Bundle outState, PersistableBundle outPeristentState){
@@ -182,11 +166,7 @@ public class DetailActivity extends AppCompatActivity {
     protected void onRestoreInstanceState(Bundle savedInstanceState){
         super.onRestoreInstanceState(savedInstanceState);
         GlideApp.with(DetailActivity.this).resumeRequests();
-//
-//        if(savedInstanceState != null){
-//            mCurrentImage = savedInstanceState.getInt(CURRENT_IMAGE);
-//
-//        }
+
     }
 
     public void contact(View view){
@@ -202,9 +182,6 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     public void editPost(View view) {
-        // code needed here for when a user wants to edit their post
-        // Go to NewPostActivity, bring all the data with as an intent?
-        // or just go to EditPostActivity?
 
         // Attempt 1: Using intents
         Intent intent = new Intent(DetailActivity.this, EditPostActivity.class);
@@ -229,7 +206,6 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     public void deletePost(View view) {
-        // https://stackoverflow.com/a/13511580/10072355
         // Create an alert popup to confirm user wants to delete the post
         AlertDialog.Builder b1 = new AlertDialog.Builder(DetailActivity.this);
         b1.setMessage("Are you sure you want to delete this post?");
@@ -248,7 +224,6 @@ public class DetailActivity extends AppCompatActivity {
                         StorageReference picRef = mStorageRef.child("images/");
                         // MORE CODE NEEDED HERE
 
-                        // https://firebase.google.com/docs/firestore/manage-data/delete-data
                         // delete the item from the DB
                         mDb.collection(JUNK).document(itemId)
                                 .delete()
